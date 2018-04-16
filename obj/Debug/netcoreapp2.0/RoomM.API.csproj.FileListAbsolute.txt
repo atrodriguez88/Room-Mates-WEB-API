@@ -8,3 +8,13 @@ C:\Users\Triana\Source\Repos\RoomMates\RoomM.API\obj\Debug\netcoreapp2.0\RoomM.A
 C:\Users\Triana\Source\Repos\RoomMates\RoomM.API\obj\Debug\netcoreapp2.0\RoomM.API.AssemblyInfo.cs
 C:\Users\Triana\Source\Repos\RoomMates\RoomM.API\obj\Debug\netcoreapp2.0\RoomM.API.dll
 C:\Users\Triana\Source\Repos\RoomMates\RoomM.API\obj\Debug\netcoreapp2.0\RoomM.API.pdb
+C:\Users\Triana\Source\Repos\RoomMates\RoomM.APP\RoomM.API\bin\Debug\netcoreapp2.0\RoomM.API.deps.json
+C:\Users\Triana\Source\Repos\RoomMates\RoomM.APP\RoomM.API\bin\Debug\netcoreapp2.0\RoomM.API.runtimeconfig.json
+C:\Users\Triana\Source\Repos\RoomMates\RoomM.APP\RoomM.API\bin\Debug\netcoreapp2.0\RoomM.API.runtimeconfig.dev.json
+C:\Users\Triana\Source\Repos\RoomMates\RoomM.APP\RoomM.API\bin\Debug\netcoreapp2.0\RoomM.API.dll
+C:\Users\Triana\Source\Repos\RoomMates\RoomM.APP\RoomM.API\bin\Debug\netcoreapp2.0\RoomM.API.pdb
+C:\Users\Triana\Source\Repos\RoomMates\RoomM.APP\RoomM.API\obj\Debug\netcoreapp2.0\RoomM.API.csproj.CoreCompileInputs.cache
+C:\Users\Triana\Source\Repos\RoomMates\RoomM.APP\RoomM.API\obj\Debug\netcoreapp2.0\RoomM.API.AssemblyInfoInputs.cache
+C:\Users\Triana\Source\Repos\RoomMates\RoomM.APP\RoomM.API\obj\Debug\netcoreapp2.0\RoomM.API.AssemblyInfo.cs
+C:\Users\Triana\Source\Repos\RoomMates\RoomM.APP\RoomM.API\obj\Debug\netcoreapp2.0\RoomM.API.dll
+C:\Users\Triana\Source\Repos\RoomMates\RoomM.APP\RoomM.API\obj\Debug\netcoreapp2.0\RoomM.API.pdb

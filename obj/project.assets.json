@@ -12606,11 +12606,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Triana\\Source\\Repos\\RoomMates\\RoomM.API\\RoomM.API.csproj",
+      "projectUniqueName": "C:\\Users\\Triana\\Source\\Repos\\RoomMates\\RoomM.APP\\RoomM.API\\RoomM.API.csproj",
       "projectName": "RoomM.API",
-      "projectPath": "C:\\Users\\Triana\\Source\\Repos\\RoomMates\\RoomM.API\\RoomM.API.csproj",
+      "projectPath": "C:\\Users\\Triana\\Source\\Repos\\RoomMates\\RoomM.APP\\RoomM.API\\RoomM.API.csproj",
       "packagesPath": "C:\\Users\\Triana\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Triana\\Source\\Repos\\RoomMates\\RoomM.API\\obj\\",
+      "outputPath": "C:\\Users\\Triana\\Source\\Repos\\RoomMates\\RoomM.APP\\RoomM.API\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

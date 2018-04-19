@@ -23,13 +23,13 @@ namespace RoomM.API.Controllers
             this.mapper = mapper;
         }
         [HttpPost]
-        public async Task<IActionResult> CreateProfile([FromBody] ProfileResource profileResource)
+        public async Task<IActionResult> CreateProfile([FromBody] SaveProfileResource profileResource)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var profile = mapper.Map<ProfileResource, Core.Models.Profile>(profileResource);
+            var profile = mapper.Map<SaveProfileResource, Core.Models.Profile>(profileResource);
             profile.MovingDate = DateTime.Now;
 
             await repository.AddProfileAsync(profile);
@@ -39,7 +39,7 @@ namespace RoomM.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> SaveProfile(int id, [FromBody] ProfileResource profileResource)
+        public async Task<IActionResult> SaveProfile(int id, [FromBody] SaveProfileResource profileResource)
         {
             if (!ModelState.IsValid)
             {
@@ -50,7 +50,7 @@ namespace RoomM.API.Controllers
             {
                 return NotFound();
             }
-            mapper.Map<ProfileResource, Core.Models.Profile>(profileResource, profile);
+            mapper.Map<SaveProfileResource, Core.Models.Profile>(profileResource, profile);
             profile.MovingDate = DateTime.Now;
 
             await uow.CompleteAsync();
@@ -92,6 +92,16 @@ namespace RoomM.API.Controllers
             repository.Remove(profile);
             await uow.CompleteAsync();
             return Ok(id);
+        }
+
+
+        [HttpGet("user/{userId}")]
+        public async Task<IActionResult> GetProfileByUserId(int userId)
+        {
+            var profilesByUser = await repository.GetProfileByUserId(userId);
+            if (profilesByUser.Count < 1)
+                return NotFound();
+            return Ok(mapper.Map<List<Core.Models.Profile>, List<ProfileResource>>(profilesByUser));
         }
 
     }

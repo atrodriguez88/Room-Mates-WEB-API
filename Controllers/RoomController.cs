@@ -100,5 +100,14 @@ namespace Room_Mates.Controllers
             await uow.CompleteAsync();
             return Ok(id);
         }
+
+        [HttpGet("user/{userId}")]
+        public async Task<IActionResult> Get(int userId)
+        {
+            var roomByUser = await repository.GetRoomsByUserId(userId);
+            if(roomByUser.Count < 1)
+                return NotFound();
+            return Ok(mapper.Map<List<Room>,List<RoomResource>>(roomByUser));
+        }
     }
 }

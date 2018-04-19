@@ -10,5 +10,6 @@ namespace RoomM.API.Core
         Task<Room> GetRoom(int id, bool? includeRelated = true);
         Task AddRoomAsync(Room room);
         void Remove(Room room);
+        Task<List<Room>> GetRoomsByUserId(int userId);
     }
 }

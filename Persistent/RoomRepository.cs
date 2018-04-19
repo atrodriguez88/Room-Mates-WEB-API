@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using RoomM.API.Core;
@@ -47,6 +48,18 @@ namespace RoomM.API.Persistent
                  .ThenInclude(rrf => rrf.RoomFeatures).ToListAsync();
 
             return rooms;
+        }
+
+        public Task<List<Room>> GetRoomsByUserId(int userId)
+        {
+            return context.Rooms.Where( r => r.UserId == userId)
+            .Include(r => r.PropertyFeatures)
+                .ThenInclude(rpf => rpf.PropertyFeatures)
+            .Include(r => r.Rules)
+                .ThenInclude(rpr => rpr.PropertyRules)            
+            .Include(r => r.RoomFeatures)
+                .ThenInclude(rrf => rrf.RoomFeatures)       
+            .ToListAsync();
         }
 
         public void Remove(Room room)

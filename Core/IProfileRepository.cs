@@ -7,6 +7,7 @@ namespace RoomM.API.Core
     public interface IProfileRepository
     {
         Task<Profile> GetProfile(int id, bool? includeRelated = true);
+        Task<List<Profile>> GetProfileByUserId(int userId);
         Task<List<Profile>> GetProfiles();
 
         Task AddProfileAsync(Profile profile);

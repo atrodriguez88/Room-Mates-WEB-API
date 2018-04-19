@@ -16,16 +16,19 @@ namespace RoomM.API.Mapping
             CreateMap<PropertyFeatures, KeyValuePairResource>();
             CreateMap<PropertyRules, KeyValuePairResource>();
             CreateMap<Core.Models.Profile, ProfileResource>();
-            // (POST, PUT)
-            CreateMap<Room, SaveRoomResource>()
-            .ForMember(rr => rr.Rules, opt => opt.MapFrom(r => r.Rules.Select(RPR => RPR.PropertyRulesId)))
-            .ForMember(rr => rr.PropertyFeatures, opt => opt.MapFrom(r => r.PropertyFeatures.Select(RPR => RPR.PropertyFeaturesId)))
-            .ForMember(rr => rr.RoomFeatures, opt => opt.MapFrom(r => r.RoomFeatures.Select(RPR => RPR.RoomFeaturesId)));
             // (GET)
             CreateMap<Room, RoomResource>()
             .ForMember(rr => rr.Rules, opt => opt.MapFrom(r => r.Rules.Select(RPR => new KeyValuePairResource { Id = RPR.PropertyRules.Id, Name = RPR.PropertyRules.Name })))
             .ForMember(rr => rr.PropertyFeatures, opt => opt.MapFrom(r => r.PropertyFeatures.Select(RPR => new KeyValuePairResource { Id = RPR.PropertyFeatures.Id, Name = RPR.PropertyFeatures.Name })))
             .ForMember(rr => rr.RoomFeatures, opt => opt.MapFrom(r => r.RoomFeatures.Select(RPR => new KeyValuePairResource { Id = RPR.RoomFeatures.Id, Name = RPR.RoomFeatures.Name })));
+            // (POST, PUT)
+            CreateMap<Room, SaveRoomResource>()
+            .ForMember(rr => rr.Rules, opt => opt.MapFrom(r => r.Rules.Select(RPR => RPR.PropertyRulesId)))
+            .ForMember(rr => rr.PropertyFeatures, opt => opt.MapFrom(r => r.PropertyFeatures.Select(RPR => RPR.PropertyFeaturesId)))
+            .ForMember(rr => rr.RoomFeatures, opt => opt.MapFrom(r => r.RoomFeatures.Select(RPR => RPR.RoomFeaturesId)));           
+            // CreateMap<Core.Models.Profile, SaveProfileResource>()
+            // .ForMember(rr => rr.OcupationId, opt => opt.MapFrom(r => r.Ocupation));
+
 
             //API to Domain (POST, PUT)
             CreateMap<KeyValuePairResource, PropertyType>()
@@ -38,8 +41,9 @@ namespace RoomM.API.Mapping
             .ForMember(p => p.Id, opt => opt.Ignore());
             CreateMap<KeyValuePairResource, PropertyRules>()
             .ForMember(p => p.Id, opt => opt.Ignore());
-            CreateMap<ProfileResource, Core.Models.Profile>()
+            CreateMap<SaveProfileResource, Core.Models.Profile>()
             .ForMember(p => p.Id, opt => opt.Ignore());
+            // .ForMember(p => p.Ocupation, opt => opt.MapFrom(spr => new Ocupation{Id = spr.OcupationId}));
             CreateMap<SaveRoomResource, Room>()
             .ForMember(p => p.Id, opt => opt.Ignore())
             // Many to Many(Only POST)

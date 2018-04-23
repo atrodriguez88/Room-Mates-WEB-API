@@ -25,9 +25,7 @@ namespace RoomM.API.Mapping
             CreateMap<Room, SaveRoomResource>()
             .ForMember(rr => rr.Rules, opt => opt.MapFrom(r => r.Rules.Select(RPR => RPR.PropertyRulesId)))
             .ForMember(rr => rr.PropertyFeatures, opt => opt.MapFrom(r => r.PropertyFeatures.Select(RPR => RPR.PropertyFeaturesId)))
-            .ForMember(rr => rr.RoomFeatures, opt => opt.MapFrom(r => r.RoomFeatures.Select(RPR => RPR.RoomFeaturesId)));           
-            // CreateMap<Core.Models.Profile, SaveProfileResource>()
-            // .ForMember(rr => rr.OcupationId, opt => opt.MapFrom(r => r.Ocupation));
+            .ForMember(rr => rr.RoomFeatures, opt => opt.MapFrom(r => r.RoomFeatures.Select(RPR => RPR.RoomFeaturesId)));
 
 
             //API to Domain (POST, PUT)

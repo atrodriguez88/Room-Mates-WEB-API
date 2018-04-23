@@ -30,11 +30,13 @@ namespace RoomM.API.Controllers
                 return BadRequest(ModelState);
             }
             var profile = mapper.Map<SaveProfileResource, Core.Models.Profile>(profileResource);
-            profile.MovingDate = DateTime.Now;
+            if(profile.MovingDate == null)
+                profile.MovingDate = DateTime.Now;
 
             await repository.AddProfileAsync(profile);
             await uow.CompleteAsync();
 
+            profile = await repository.GetProfile(profile.Id);            
             return Ok(mapper.Map<Core.Models.Profile, ProfileResource>(profile));
         }
 

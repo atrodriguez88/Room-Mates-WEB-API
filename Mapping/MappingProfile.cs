@@ -75,7 +75,7 @@ namespace RoomM.API.Mapping
                 // Add new PropertyFeatures
                 var addedPropRules = rr.PropertyFeatures.Where(id => !r.PropertyFeatures.Any(RPR => RPR.PropertyFeaturesId == id))
                     .Select(id => new RoomsPropertyFeatures { PropertyFeaturesId = id }).ToList();
-                foreach (var aPF in removedPropFeature)
+                foreach (var aPF in addedPropRules)
                     r.PropertyFeatures.Add(aPF);
             })
             .ForMember(r => r.RoomFeatures, opt => opt.Ignore())

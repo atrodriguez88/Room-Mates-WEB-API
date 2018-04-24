@@ -8,6 +8,7 @@ namespace RoomM.API.Persistent
     {
         public DbSet<Room> Rooms { get; set; }
         public DbSet<Profile> Profiles { get; set; }
+        public DbSet<PropertyRules> PropertyRules { get; set; }
         public RoomMDbContext(DbContextOptions<RoomMDbContext> options)
             : base(options)
         {

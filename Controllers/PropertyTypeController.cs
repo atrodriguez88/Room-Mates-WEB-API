@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using RoomM.API.Controllers.Resources;
+using RoomM.API.Core;
 using RoomM.API.Core.Models;
 using RoomM.API.Persistent;
 
@@ -12,8 +13,8 @@ namespace RoomM.API.Controllers
     public class PropertyTypeController : Controller
     {
         private readonly IMapper mapper;
-        private readonly PropertyTypeRepository repository;
-        public PropertyTypeController(PropertyTypeRepository repository, IMapper mapper)
+        private readonly IPropertyType repository;
+        public PropertyTypeController(IPropertyType repository, IMapper mapper)
         {
             this.repository = repository;
             this.mapper = mapper;

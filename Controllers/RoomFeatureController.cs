@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using RoomM.API.Controllers.Resources;
+using RoomM.API.Core;
 using RoomM.API.Core.Models;
 using RoomM.API.Persistent;
 
@@ -11,10 +12,10 @@ namespace RoomM.API.Controllers
     [Route("/api/roomfeatures")]
     public class RoomFeatureController : Controller
     {
-        private readonly RoomFeatureRepository repository;
+        private readonly IRoomFeature repository;
         private readonly IMapper mapper;
 
-        public RoomFeatureController(RoomFeatureRepository repository, IMapper mapper)
+        public RoomFeatureController(IRoomFeature repository, IMapper mapper)
         {
             this.mapper = mapper;
             this.repository = repository;

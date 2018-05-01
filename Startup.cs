@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -11,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using RoomM.API.Core;
 using RoomM.API.Core.Models;
 using RoomM.API.Persistent;
@@ -44,6 +47,20 @@ namespace RoomM.API
             services.AddIdentity<ApplicationUser, IdentityRole>()
                     .AddEntityFrameworkStores<RoomMDbContext>()
                     .AddDefaultTokenProviders();
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                    .AddJwtBearer(options => options.TokenValidationParameters = new TokenValidationParameters{
+                     ValidateIssuer = true,
+                     ValidateAudience = true,
+                     ValidateLifetime = true,
+                     ValidateIssuerSigningKey = true,
+                     ValidIssuer = "yourdomain.com",
+                     ValidAudience = "yourdomain.com",
+                     IssuerSigningKey = new SymmetricSecurityKey(
+                                        // Encoding.UTF8.GetBytes(Configuration["Llave_super_secreta"])),
+                                        Encoding.UTF8.GetBytes("Llave_super_secreta")),
+                     ClockSkew = TimeSpan.Zero
+                 });               
                     
             services.AddMvc();
             services.AddCors();
@@ -57,6 +74,7 @@ namespace RoomM.API
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseAuthentication();
             app.UseCors(web => web.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().AllowCredentials());
             app.UseMvc();
         }

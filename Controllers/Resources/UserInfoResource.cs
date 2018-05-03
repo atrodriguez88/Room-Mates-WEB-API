@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace RoomM.API.Core.Models
+namespace RoomM.API.Controllers.Resources
 {
-    public class UserInfo
+    public class UserInfoResource
     {
         [Required]
         public string Email { get; set; }

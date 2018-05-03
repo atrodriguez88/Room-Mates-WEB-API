@@ -3,10 +3,13 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using RoomM.API.Controllers.Resources;
+using RoomM.API.Core;
 using RoomM.API.Core.Models;
 
 namespace RoomM.API.Controllers
@@ -14,37 +17,37 @@ namespace RoomM.API.Controllers
     [Route("api/account")]
     public class AccountController : Controller
     {
-        private readonly UserManager<ApplicationUser> userManager;
-        private readonly SignInManager<ApplicationUser> signInManager;
-        private readonly IConfiguration configuration;
+        private readonly IAuthRepository repository;
+        private readonly IMapper mapper;
 
-        public AccountController(
-            UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager,
-            IConfiguration configuration)
+        public AccountController(IAuthRepository repository, IMapper mapper )
         {
-            this.userManager = userManager;
-            this.signInManager = signInManager;
-            this.configuration = configuration;
+            this.mapper = mapper;
+            this.repository = repository;
         }
 
         [Route("create")]
         [HttpPost]
-        public async Task<IActionResult> CreateUser([FromBody] UserInfo model)
+        public async Task<IActionResult> CreateUser([FromBody] UserInfoResource userInfo)
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email
-                                                , FirstName = model.firstName, LastName = model.lastName,
-                                                AdTitle = model.adTitle, AdDescription = model.adDescription };
-                var result = await userManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
+                var user = new ApplicationUser { UserName = userInfo.Email, Email = userInfo.Email
+                                                , FirstName = userInfo.firstName, LastName = userInfo.lastName,
+                                                AdTitle = userInfo.adTitle, AdDescription = userInfo.adDescription };
+                var UserExist = await repository.UserExist(userInfo.Email);
+                if (UserExist)
                 {
-                    return BuildToken(model);
+                   return BadRequest("This user alraedy exist");
+                }
+                var result = await repository.Register(user, userInfo.Password);
+                if (result)
+                {                    
+                    return Ok(repository.BuildToken(mapper.Map<UserInfoResource,UserInfo>(userInfo)));
                 }
                 else
                 {
-                    return BadRequest("Username or password invalid");
+                    return BadRequest("Password invalid, You must use alphanumeric caracters, numbers and upper case");
                 }
             }
             else
@@ -56,14 +59,19 @@ namespace RoomM.API.Controllers
 
         [HttpPost]
         [Route("login")]
-        public async Task<IActionResult> Login([FromBody] UserInfo userInfo)
+        public async Task<IActionResult> Login([FromBody] UserInfoResource userInfo)
         {
             if (ModelState.IsValid)
             {
-                var result = await signInManager.PasswordSignInAsync(userInfo.Email, userInfo.Password, isPersistent: false, lockoutOnFailure: false);
-                if (result.Succeeded)
+                var UserExist = await repository.UserExist(userInfo.Email);
+                if (UserExist)
                 {
-                    return BuildToken(userInfo);
+                    BadRequest("This user alraedy exist");
+                }
+                var result = await repository.Login(userInfo.Email, userInfo.Password);
+                if (result)
+                {
+                    return Ok(repository.BuildToken(mapper.Map<UserInfoResource,UserInfo>(userInfo)));
                 }
                 else
                 {
@@ -75,36 +83,6 @@ namespace RoomM.API.Controllers
             {
                 return BadRequest(ModelState);
             }
-        }
-
-        private IActionResult BuildToken(UserInfo userInfo)
-        {
-            var claims = new[]
-            {
-                new Claim(JwtRegisteredClaimNames.UniqueName, userInfo.Email),
-                new Claim("miValor", "Lo que yo quiera"),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-            };
-
-            // var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Llave_super_secreta"])); // environment variable
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Llave_super_secreta")); // environment variable            
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-            var expiration = DateTime.UtcNow.AddHours(1);
-
-            JwtSecurityToken token = new JwtSecurityToken(
-               issuer: "yourdomain.com",
-               audience: "yourdomain.com",
-               claims: claims,
-               expires: expiration,
-               signingCredentials: creds);
-
-            return Ok(new
-            {
-                token = new JwtSecurityTokenHandler().WriteToken(token),
-                expiration = expiration
-            });
-
-        }
+        }        
     }
 }

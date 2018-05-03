@@ -5,8 +5,9 @@ namespace RoomM.API.Core
 {
     public interface IAuthRepository
     {
-         Task Register(ApplicationUser user, string pass);
-         Task Login(string user, string pass);
-         bool UserExist(string user);
+         Task<bool> Register(ApplicationUser user, string pass);
+         Task<bool> Login(string user, string pass);
+         Task<bool> UserExist(string user);
+         object BuildToken(UserInfo userInfo);
     }
 }

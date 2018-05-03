@@ -10,6 +10,7 @@ namespace RoomM.API.Mapping
         public MappingProfile()
         {
             // Domain to API (GET)
+            CreateMap<UserInfo, UserInfoResource>();
             CreateMap<PropertyType, KeyValuePairResource>();
             CreateMap<RoomFeatures, KeyValuePairResource>();
             CreateMap<Ocupation, KeyValuePairResource>();

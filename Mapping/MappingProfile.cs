@@ -10,7 +10,7 @@ namespace RoomM.API.Mapping
         public MappingProfile()
         {
             // Domain to API (GET)
-            CreateMap<UserInfo, UserInfoResource>();
+            CreateMap<ApplicationUser, ApplicationUserResource>();
             CreateMap<PropertyType, KeyValuePairResource>();
             CreateMap<RoomFeatures, KeyValuePairResource>();
             CreateMap<Ocupation, KeyValuePairResource>();
@@ -30,6 +30,7 @@ namespace RoomM.API.Mapping
 
 
             //API to Domain (POST, PUT)
+            CreateMap<ApplicationUserResource, ApplicationUser>();
             CreateMap<KeyValuePairResource, PropertyType>()
             .ForMember(pr => pr.Id, opt => opt.Ignore());
             CreateMap<KeyValuePairResource, RoomFeatures>()

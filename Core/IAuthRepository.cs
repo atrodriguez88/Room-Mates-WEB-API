@@ -8,6 +8,6 @@ namespace RoomM.API.Core
          Task<bool> Register(ApplicationUser user, string pass);
          Task<bool> Login(string user, string pass);
          Task<bool> UserExist(string user);
-         object BuildToken(UserInfo userInfo);
+         object BuildToken(ApplicationUser userInfo);
     }
 }

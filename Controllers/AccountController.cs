@@ -21,13 +21,11 @@ namespace RoomM.API.Controllers
 
         [Route("create")]
         [HttpPost]
-        public async Task<IActionResult> CreateUser([FromBody] UserInfoResource userInfo)
+        public async Task<IActionResult> CreateUser([FromBody] ApplicationUserResource userInfo)
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = userInfo.Email, Email = userInfo.Email
-                                                , FirstName = userInfo.firstName, LastName = userInfo.lastName,
-                                                AdTitle = userInfo.adTitle, AdDescription = userInfo.adDescription };
+                var user = new ApplicationUser { UserName = userInfo.Email, Email = userInfo.Email, FirstName = userInfo.FirstName };
                 var UserExist = await repository.UserExist(userInfo.Email);
                 if (UserExist)
                 {
@@ -36,7 +34,7 @@ namespace RoomM.API.Controllers
                 var result = await repository.Register(user, userInfo.Password);
                 if (result)
                 {                    
-                    return Ok(repository.BuildToken(mapper.Map<UserInfoResource,UserInfo>(userInfo)));
+                    return Ok(repository.BuildToken(mapper.Map<ApplicationUserResource, ApplicationUser>(userInfo)));
                 }
                 else
                 {
@@ -52,7 +50,7 @@ namespace RoomM.API.Controllers
 
         [HttpPost]
         [Route("login")]
-        public async Task<IActionResult> Login([FromBody] UserInfoResource userInfo)
+        public async Task<IActionResult> Login([FromBody] ApplicationUserResource userInfo)
         {
             if (ModelState.IsValid)
             {
@@ -64,7 +62,7 @@ namespace RoomM.API.Controllers
                 var result = await repository.Login(userInfo.Email, userInfo.Password);
                 if (result)
                 {
-                    return Ok(repository.BuildToken(mapper.Map<UserInfoResource,UserInfo>(userInfo)));
+                    return Ok(repository.BuildToken(mapper.Map<ApplicationUserResource, ApplicationUser>(userInfo)));
                 }
                 else
                 {

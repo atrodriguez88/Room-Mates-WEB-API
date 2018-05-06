@@ -15,13 +15,30 @@ namespace RoomM.API.Core.Models
         [StringLength(50)]
         public string LastName { get; set; }
         public bool ShowPhone { get; set; }
-        [Required]
+
         [StringLength(100)]
         public string AdTitle { get; set; }
-        [Required]
+
         [StringLength(255, MinimumLength = 50)]
         public string AdDescription { get; set; }
         public bool NotificationViaEmail { get; set; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         public ICollection<Room> Rooms { get; set; }
         public ICollection<Profile> Profiles { get; set; }
 

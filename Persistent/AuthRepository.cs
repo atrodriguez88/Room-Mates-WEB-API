@@ -27,7 +27,7 @@ namespace RoomM.API.Persistent
             
         }
 
-        public object BuildToken(UserInfo userInfo)
+        public object BuildToken(ApplicationUser userInfo)
         {
             var claims = new[]
             {

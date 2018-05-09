@@ -11,9 +11,10 @@ using System;
 namespace RoomM.API.Migrations
 {
     [DbContext(typeof(RoomMDbContext))]
-    partial class RoomMDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180509032400_Modify Models")]
+    partial class ModifyModels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

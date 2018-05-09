@@ -47,6 +47,11 @@ namespace RoomM.API.Core.Models
         public int OcupationId { get; set; }
         public Ocupation PrefOcuppations { get; set; }
         public int PrefMinAge { get; set; }
+        [StringLength(100)]
+        public string AdTitle { get; set; }
+
+        [StringLength(255, MinimumLength = 50)]
+        public string AdDescription { get; set; }
 
         public int UserId { get; set; }
         public ApplicationUser User { get; set; }

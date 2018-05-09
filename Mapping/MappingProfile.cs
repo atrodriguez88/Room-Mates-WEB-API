@@ -30,6 +30,7 @@ namespace RoomM.API.Mapping
 
 
             //API to Domain (POST, PUT)
+            CreateMap<SaveApplicationUserResource, ApplicationUser>();
             CreateMap<ApplicationUserResource, ApplicationUser>();
             CreateMap<KeyValuePairResource, PropertyType>()
             .ForMember(pr => pr.Id, opt => opt.Ignore());

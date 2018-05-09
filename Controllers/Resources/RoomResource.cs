@@ -35,6 +35,8 @@ namespace RoomM.API.Controllers.Resources
         public int OcupationId { get; set; }
         public KeyValuePairResource PrefOcuppations { get; set; }
         public int PrefMinAge { get; set; }
+        public string AdTitle { get; set; }
+        public string AdDescription { get; set; }
 
         public int UserId { get; set; }
         // public ApplicationUser User { get; set; }

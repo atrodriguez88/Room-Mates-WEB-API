@@ -21,7 +21,7 @@ namespace RoomM.API.Controllers
 
         [Route("create")]
         [HttpPost]
-        public async Task<IActionResult> CreateUser([FromBody] ApplicationUserResource userInfo)
+        public async Task<IActionResult> CreateUser([FromBody] SaveApplicationUserResource userInfo)
         {
             if (ModelState.IsValid)
             {
@@ -34,7 +34,7 @@ namespace RoomM.API.Controllers
                 var result = await repository.Register(user, userInfo.Password);
                 if (result)
                 {                    
-                    return Ok(repository.BuildToken(mapper.Map<ApplicationUserResource, ApplicationUser>(userInfo)));
+                    return Ok(repository.BuildToken(mapper.Map<SaveApplicationUserResource, ApplicationUser>(userInfo)));
                 }
                 else
                 {
@@ -50,7 +50,7 @@ namespace RoomM.API.Controllers
 
         [HttpPost]
         [Route("login")]
-        public async Task<IActionResult> Login([FromBody] ApplicationUserResource userInfo)
+        public async Task<IActionResult> Login([FromBody] SaveApplicationUserResource userInfo)
         {
             if (ModelState.IsValid)
             {
@@ -62,7 +62,7 @@ namespace RoomM.API.Controllers
                 var result = await repository.Login(userInfo.Email, userInfo.Password);
                 if (result)
                 {
-                    return Ok(repository.BuildToken(mapper.Map<ApplicationUserResource, ApplicationUser>(userInfo)));
+                    return Ok(repository.BuildToken(mapper.Map<SaveApplicationUserResource, ApplicationUser>(userInfo)));
                 }
                 else
                 {

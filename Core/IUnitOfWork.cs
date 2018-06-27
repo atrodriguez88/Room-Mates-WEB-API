@@ -1,9 +1,11 @@
+using System;
 using System.Threading.Tasks;
 
 namespace RoomM.API.Core
 {
-    public interface IUnitOfWork
+    public interface IUnitOfWork : IDisposable
     {
-         Task CompleteAsync();
+        void Complete();
+        Task CompleteAsync();
     }
 }

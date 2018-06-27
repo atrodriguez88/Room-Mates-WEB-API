@@ -6,6 +6,11 @@ namespace RoomM.API.Persistent
 {
     public class RoomMDbContext : IdentityDbContext<ApplicationUser>
     {
+        // Testear
+        //public DbSet<ApplicationUser> ApplicationUser { get; set; }
+        //public DbSet<ApplicationRole> ApplicationRole { get; set; }
+        //public DbSet<ApplicationUserRole> ApplicationUserRole { get; set; }
+
         public DbSet<Room> Rooms { get; set; }
         public DbSet<Profile> Profiles { get; set; }
         public DbSet<PropertyRules> PropertyRules { get; set; }

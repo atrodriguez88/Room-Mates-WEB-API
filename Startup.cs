@@ -15,8 +15,11 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using RoomM.API.Core;
+using RoomM.API.Core.Entity;
 using RoomM.API.Core.Models;
 using RoomM.API.Persistent;
+using RoomM.API.Persistent.Entity;
+using RoomM.API.Service;
 
 namespace RoomM.API
 {
@@ -37,7 +40,10 @@ namespace RoomM.API
             services.AddScoped<IRoomFeature, RoomFeatureRepository>();
             services.AddScoped<IPropertyType, PropertyTypeRepository>();
             services.AddScoped<IPropertyFeature, PropertyFeaturesRepository>();
-            services.AddScoped<IOcupation, OcupationRepository>();
+
+            services.AddScoped<IOcupationService, OcupationService>();
+            services.AddScoped<IOcupationRepository, OcupationRepository>();
+
             services.AddScoped<IRuleRepository, RuleRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IProfileRepository, ProfileRepository>();

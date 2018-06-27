@@ -15,5 +15,15 @@ namespace RoomM.API.Persistent
         {
             await context.SaveChangesAsync();
         }
+
+        public void Complete()
+        {
+            context.SaveChanges();
+        }
+
+        public void Dispose()
+        {
+            context.Dispose();
+        }
     }
 }

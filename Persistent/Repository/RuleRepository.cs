@@ -3,20 +3,21 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using RoomM.API.Core;
 using RoomM.API.Core.Models;
+using RoomM.API.Persistent.Entity;
 
 namespace RoomM.API.Persistent
 {
-    public class PropertyTypeRepository : IPropertyType
+    public class RuleRepository : Repository<PropertyRules>, IRuleRepository
     {
         private readonly RoomMDbContext context;
-        public PropertyTypeRepository(RoomMDbContext context)
+        public RuleRepository(RoomMDbContext context) : base(context)
         {
             this.context = context;
 
         }
-        public Task<List<PropertyType>> GetPropertyTypes()
+        public Task<List<PropertyRules>> GetRules()
         {
-            return context.PropertyTypes.ToListAsync();
+            return context.PropertyRules.ToListAsync();
         }
     }
 }

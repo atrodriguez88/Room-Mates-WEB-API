@@ -7,6 +7,6 @@ namespace RoomM.API.Core
     public interface IUserRepository
     {
         Task<List<ApplicationUser>> GetUsers();
-        Task<ApplicationUser> GetUser(int id);
+        Task<ApplicationUser> GetUser(string id);
     }
 }

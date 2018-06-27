@@ -11,9 +11,10 @@ using System;
 namespace RoomM.API.Migrations
 {
     [DbContext(typeof(RoomMDbContext))]
-    partial class RoomMDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180519160600_User Fields")]
+    partial class UserFields
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -153,6 +154,7 @@ namespace RoomM.API.Migrations
                         .HasMaxLength(50);
 
                     b.Property<string>("LastName")
+                        .IsRequired()
                         .HasMaxLength(50);
 
                     b.Property<bool>("LockoutEnabled");

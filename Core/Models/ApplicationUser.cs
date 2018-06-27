@@ -10,8 +10,6 @@ namespace RoomM.API.Core.Models
         [Required]
         [StringLength(50)]
         public string FirstName { get; set; }
-        [Required]
-
         [StringLength(50)]
         public string LastName { get; set; }
         public bool ShowPhone { get; set; }
@@ -19,6 +17,7 @@ namespace RoomM.API.Core.Models
         public bool NotificationViaEmail { get; set; }
         [StringLength(255)]
         public string AboutMe { get; set; }
+        public string Address { get; set; }
 
         public ICollection<Room> Rooms { get; set; }
         public ICollection<Profile> Profiles { get; set; }

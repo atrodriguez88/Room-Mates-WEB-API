@@ -20,10 +20,8 @@ namespace RoomM.API.Controllers
             this.repository = repository;
         }
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetUser(int id)
+        public async Task<IActionResult> GetUser(string id)
         {
-            if (id < 1)
-                return BadRequest("Wrong Identify");
             var user = await repository.GetUser(id);
             if (user == null)
                 NotFound();

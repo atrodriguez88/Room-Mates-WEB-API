@@ -1,7 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Persistent"
   ],
-  "SelectedNode": "\\appsettings.json",
+  "SelectedNode": "\\RoomM.API.sln",
   "PreviewInSolutionExplorer": false
 }

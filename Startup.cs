@@ -1,24 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using RoomM.API.Core;
-using RoomM.API.Core.Entity;
 using RoomM.API.Core.Models;
 using RoomM.API.Persistent;
-using RoomM.API.Persistent.Entity;
 using RoomM.API.Service;
 
 namespace RoomM.API
@@ -68,9 +63,16 @@ namespace RoomM.API
                                         // Encoding.UTF8.GetBytes(Configuration["Llave_super_secreta"])),
                                         Encoding.UTF8.GetBytes("Llave_super_secreta")),
                      ClockSkew = TimeSpan.Zero
-                 });               
-                    
-            services.AddMvc();
+                 });
+
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1); ;
             services.AddCors();
         }
 
@@ -81,6 +83,15 @@ namespace RoomM.API
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                app.UseExceptionHandler("/Error");
+                app.UseHsts();
+            }
+
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
+            app.UseCookiePolicy();
 
             app.UseAuthentication();
             app.UseCors(web => web.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().AllowCredentials());

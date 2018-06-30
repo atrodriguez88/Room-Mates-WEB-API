@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Text;
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -11,7 +12,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using NLog;
 using RoomM.API.Core;
+using RoomM.API.Core.Log;
 using RoomM.API.Core.Models;
 using RoomM.API.Persistent;
 using RoomM.API.Service;
@@ -22,6 +25,7 @@ namespace RoomM.API
     {
         public Startup(IConfiguration configuration)
         {
+            LogManager.LoadConfiguration(String.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
             Configuration = configuration;
         }
 
@@ -43,6 +47,10 @@ namespace RoomM.API
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IProfileRepository, ProfileRepository>();
             services.AddScoped<IRoomRepository, RoomRepository>();
+
+            // Add the logger service
+            services.AddSingleton<ILoggerManager, LoggerService>();
+
             services.AddAutoMapper();
             services.AddDbContext<RoomMDbContext>(options => options
             .UseSqlServer(Configuration.GetConnectionString("Default")));
@@ -75,7 +83,7 @@ namespace RoomM.API
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1); ;
             services.AddCors();
         }
-
+        
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {

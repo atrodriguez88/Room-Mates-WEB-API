@@ -2809,7 +2809,7 @@
           "lib/netstandard1.3/Newtonsoft.Json.Bson.dll": {}
         }
       },
-      "NLog/4.5.4": {
+      "NLog/4.5.5": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/NLog.dll": {}
@@ -2818,33 +2818,17 @@
           "lib/netstandard2.0/NLog.dll": {}
         }
       },
-      "NLog.Extensions.Logging/1.0.2": {
+      "NLog.Extensions.Logging/1.1.0": {
         "type": "package",
         "dependencies": {
           "Microsoft.Extensions.Logging": "2.0.1",
-          "NLog": "[4.5.4, 5.0.0-beta01)"
+          "NLog": "[4.5.5, 5.0.0-beta01)"
         },
         "compile": {
           "lib/netstandard2.0/NLog.Extensions.Logging.dll": {}
         },
         "runtime": {
           "lib/netstandard2.0/NLog.Extensions.Logging.dll": {}
-        }
-      },
-      "NLog.Web.AspNetCore/4.5.4": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.AspNetCore.Hosting.Abstractions": "2.0.0",
-          "Microsoft.AspNetCore.Http": "2.0.0",
-          "Microsoft.AspNetCore.Http.Extensions": "2.0.0",
-          "Microsoft.AspNetCore.Routing.Abstractions": "2.0.0",
-          "NLog.Extensions.Logging": "1.0.2"
-        },
-        "compile": {
-          "lib/netstandard2.0/NLog.Web.AspNetCore.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard2.0/NLog.Web.AspNetCore.dll": {}
         }
       },
       "NuGet.Frameworks/4.7.0": {
@@ -7658,10 +7642,10 @@
         "newtonsoft.json.bson.nuspec"
       ]
     },
-    "NLog/4.5.4": {
-      "sha512": "sYOzep0pdVat2zkOREy6FQwcH4zRCTimGr4c1Esqc0+t9QYvQ5JXDnW/sdqOsVxbxJ28sa/3MRUGSAfXz7eIGw==",
+    "NLog/4.5.5": {
+      "sha512": "whVrRCJr2av7Z6HHBoP4sAPvyauwTSLdVl5ZfLzAi4ynZadg3+oGkVC6Qjd8WOoJCpH6V2BVgHaSi87R21AJdg==",
       "type": "package",
-      "path": "nlog/4.5.4",
+      "path": "nlog/4.5.5",
       "files": [
         "lib/monoandroid44/NLog.dll",
         "lib/monoandroid44/NLog.xml",
@@ -7685,14 +7669,14 @@
         "lib/wp8/NLog.xml",
         "lib/xamarinios10/NLog.dll",
         "lib/xamarinios10/NLog.xml",
-        "nlog.4.5.4.nupkg.sha512",
+        "nlog.4.5.5.nupkg.sha512",
         "nlog.nuspec"
       ]
     },
-    "NLog.Extensions.Logging/1.0.2": {
-      "sha512": "i5iGN3TUEGtRMO1m0xjDwFugVZz4FITJ/JNMyC4HtzBLipUJSApXiTaCR8fWkTkkyqb5fYkvgLMV4XBmwxxEqQ==",
+    "NLog.Extensions.Logging/1.1.0": {
+      "sha512": "ao017lKiIXH5QaNNTVOhwxMI+PvHOOXuSRDQgFO6Uk/SFAwCzTrahtDyeKoeYO9Buu90c2Kg4nk52vNlfqHdsw==",
       "type": "package",
-      "path": "nlog.extensions.logging/1.0.2",
+      "path": "nlog.extensions.logging/1.1.0",
       "files": [
         "lib/net451/NLog.Extensions.Logging.dll",
         "lib/net451/NLog.Extensions.Logging.xml",
@@ -7704,25 +7688,8 @@
         "lib/netstandard1.5/NLog.Extensions.Logging.xml",
         "lib/netstandard2.0/NLog.Extensions.Logging.dll",
         "lib/netstandard2.0/NLog.Extensions.Logging.xml",
-        "nlog.extensions.logging.1.0.2.nupkg.sha512",
+        "nlog.extensions.logging.1.1.0.nupkg.sha512",
         "nlog.extensions.logging.nuspec"
-      ]
-    },
-    "NLog.Web.AspNetCore/4.5.4": {
-      "sha512": "dTCjiiUAccDD2XRTg3L74bamYmjFozaA/mXEeV08bOZ0bIez1jM0pXfQTb2awFsiibrgDuCf3JJQ/xf2OJB4fA==",
-      "type": "package",
-      "path": "nlog.web.aspnetcore/4.5.4",
-      "files": [
-        "lib/net451/NLog.Web.AspNetCore.dll",
-        "lib/net451/NLog.Web.AspNetCore.xml",
-        "lib/net461/NLog.Web.AspNetCore.dll",
-        "lib/net461/NLog.Web.AspNetCore.xml",
-        "lib/netstandard1.5/NLog.Web.AspNetCore.dll",
-        "lib/netstandard1.5/NLog.Web.AspNetCore.xml",
-        "lib/netstandard2.0/NLog.Web.AspNetCore.dll",
-        "lib/netstandard2.0/NLog.Web.AspNetCore.xml",
-        "nlog.web.aspnetcore.4.5.4.nupkg.sha512",
-        "nlog.web.aspnetcore.nuspec"
       ]
     },
     "NuGet.Frameworks/4.7.0": {
@@ -12582,7 +12549,7 @@
       "Microsoft.AspNetCore.App >= 2.1.1",
       "Microsoft.NETCore.App >= 2.1.0",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 2.1.1",
-      "NLog.Web.AspNetCore >= 4.5.4"
+      "NLog.Extensions.Logging >= 1.1.0"
     ]
   },
   "packageFolders": {
@@ -12650,9 +12617,9 @@
             "target": "Package",
             "version": "[2.1.1, )"
           },
-          "NLog.Web.AspNetCore": {
+          "NLog.Extensions.Logging": {
             "target": "Package",
-            "version": "[4.5.4, )"
+            "version": "[1.1.0, )"
           }
         },
         "imports": [

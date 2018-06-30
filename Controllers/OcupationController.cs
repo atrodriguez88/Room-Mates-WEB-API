@@ -16,18 +16,15 @@ namespace RoomM.API.Controllers
     {
         private readonly IMapper mapper;
         private readonly IOcupationService repository;
-        private readonly ILogger<OcupationController> logger;
 
-        public OcupationController(IOcupationService repository, IMapper mapper, ILogger<OcupationController> logger)
+        public OcupationController(IOcupationService repository, IMapper mapper)
         {
             this.repository = repository;
             this.mapper = mapper;
-            this.logger = logger;
         }
         [HttpGet()]
         public async Task<IActionResult> GetOcupations()
         {
-            logger.LogInformation("Index page says hello");
             //var ocupations = await repository.GetOcupations();
             var ocupations = repository.GetOcupations();
             if (ocupations == null)

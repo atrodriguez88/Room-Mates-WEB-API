@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -26,10 +27,10 @@ namespace RoomM.API.Controllers
         public async Task<IActionResult> GetOcupations()
         {
             //var ocupations = await repository.GetOcupations();
-            var ocupations = repository.GetOcupations();
+            var ocupations = await repository.GetOcupations();
             if (ocupations == null)
                 return NoContent();
-            return Ok(mapper.Map<List<Ocupation>, List<KeyValuePairResource>>(ocupations));
+            return Ok(mapper.Map<List<Ocupation>, List<KeyValuePairResource>>(ocupations.ToList()));
         }
 
     }

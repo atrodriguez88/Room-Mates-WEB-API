@@ -10,7 +10,7 @@ namespace RoomM.API.Service
 {
     public interface IOcupationService {
 
-        List<Ocupation> GetOcupations();
+        Task<IEnumerable<Ocupation>> GetOcupations();
 
     }
     public class OcupationService : IOcupationService
@@ -24,14 +24,17 @@ namespace RoomM.API.Service
             this.logger = logger;
         }
 
-        public List<Ocupation> GetOcupations()
+        public async Task<IEnumerable<Ocupation>> GetOcupations()
         {
-            logger.LogInfo("Here is info message from our values controller.");
-            logger.LogDebug("Here is debug message from our values controller.");
-            logger.LogWarn("Here is warn message from our values controller.");
-            logger.LogError("Here is error message from our values controller.");
-
-            return repository.GetAll().ToList();
+            try
+            {
+                return await repository.GetAll();
+            }
+            catch (Exception e)
+            {
+                logger.LogError(e.Message);
+                return null;
+            }            
         }
     }
 }

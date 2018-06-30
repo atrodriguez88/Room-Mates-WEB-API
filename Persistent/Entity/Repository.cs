@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace RoomM.API.Persistent.Entity
 {
@@ -24,50 +25,51 @@ namespace RoomM.API.Persistent.Entity
         }
 
         #region IRepository<T> Members
-        public IQueryable<T> AsQueryable()
+        public async Task<IQueryable<T>> AsQueryable()
         {
-            return Context.Set<T>().AsQueryable();
+            var list = await Context.Set<T>().ToListAsync();
+            return list.AsQueryable();
         }
 
-        public IEnumerable<T> GetAll(params Expression<Func<T, object>>[] includeProperties)
+        public async Task<IEnumerable<T>> GetAll(params Expression<Func<T, object>>[] includeProperties)
         {
-            IQueryable<T> query = AsQueryable();
+            IQueryable<T> query = await AsQueryable();
             return PerformInclusions(includeProperties, query);
         }
 
-        public IEnumerable<T> Find(Expression<Func<T, bool>> where, params Expression<Func<T, object>>[] includeProperties)
+        public async Task<IEnumerable<T>> Find(Expression<Func<T, bool>> where, params Expression<Func<T, object>>[] includeProperties)
         {
-            IQueryable<T> query = AsQueryable();
+            IQueryable<T> query = await AsQueryable();
             query = PerformInclusions(includeProperties, query);
             return query.Where(where);
         }
 
-        public T Single(Expression<Func<T, bool>> where, params Expression<Func<T, object>>[] includeProperties)
+        public async Task<T> Single(Expression<Func<T, bool>> where, params Expression<Func<T, object>>[] includeProperties)
         {
-            IQueryable<T> query = AsQueryable();
+            IQueryable<T> query = await AsQueryable();
             query = PerformInclusions(includeProperties, query);
-            return query.Single(where);
+            return await query.SingleAsync(where);
         }
 
-        public T SingleOrDefault(Expression<Func<T, bool>> where, params Expression<Func<T, object>>[] includeProperties)
+        public async Task<T> SingleOrDefault(Expression<Func<T, bool>> where, params Expression<Func<T, object>>[] includeProperties)
         {
-            IQueryable<T> query = AsQueryable();
+            IQueryable<T> query = await AsQueryable();
             query = PerformInclusions(includeProperties, query);
-            return query.SingleOrDefault(where);
+            return await query.SingleOrDefaultAsync(where);
         }
 
-        public T First(Expression<Func<T, bool>> where, params Expression<Func<T, object>>[] includeProperties)
+        public async Task<T> First(Expression<Func<T, bool>> where, params Expression<Func<T, object>>[] includeProperties)
         {
-            IQueryable<T> query = AsQueryable();
+            IQueryable<T> query = await AsQueryable();
             query = PerformInclusions(includeProperties, query);
-            return query.First(where);
+            return await query.FirstAsync(where);
         }
 
-        public T FirstOrDefault(Expression<Func<T, bool>> where, params Expression<Func<T, object>>[] includeProperties)
+        public async Task<T> FirstOrDefault(Expression<Func<T, bool>> where, params Expression<Func<T, object>>[] includeProperties)
         {
-            IQueryable<T> query = AsQueryable();
+            IQueryable<T> query = await AsQueryable();
             query = PerformInclusions(includeProperties, query);
-            return query.FirstOrDefault(where);
+            return await query.FirstOrDefaultAsync(where);
         }
 
         public void Delete(T entity)
@@ -87,7 +89,7 @@ namespace RoomM.API.Persistent.Entity
 
         public void Insert(T entity)
         {
-            Context.Set<T>().Add(entity);
+            Context.Set<T>().AddAsync(entity);
         }
 
         public void Update(T entity)
@@ -119,9 +121,9 @@ namespace RoomM.API.Persistent.Entity
             return Context.Set<T>().FromSql(query, parameters).AsQueryable();
         }
 
-        public virtual int ExecuteSqlCommand(string query, params object[] parameters)
+        public virtual async Task<int> ExecuteSqlCommand(string query, params object[] parameters)
         {
-            return Context.Database.ExecuteSqlCommand(query, parameters);
+            return await Context.Database.ExecuteSqlCommandAsync(query, parameters);
         }
         #endregion
     }

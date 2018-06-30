@@ -13,14 +13,14 @@ namespace RoomM.API.Core.Entity
         /// Retorna un objeto del tipo AsQueryable
         /// </summary>
         /// <returns></returns>
-        IQueryable<T> AsQueryable();
+        Task<IQueryable<T>> AsQueryable();
 
         /// <summary>
         /// Retorna un objeto del tipo AsQueryable y acepta como parámetro las relaciones a incluir
         /// </summary>
         /// <param name="includeProperties"></param>
         /// <returns></returns>
-        IEnumerable<T> GetAll(params Expression<Func<T, object>>[] includeProperties);
+        Task<IEnumerable<T>> GetAll(params Expression<Func<T, object>>[] includeProperties);
 
         /// <summary>
         /// Retorna un objeto del tipo AsQueryable bajo una condición que especifiques como parámetro
@@ -28,7 +28,7 @@ namespace RoomM.API.Core.Entity
         /// <param name="where"></param>
         /// <param name="includeProperties"></param>
         /// <returns></returns>
-        IEnumerable<T> Find(Expression<Func<T, bool>> where, params Expression<Func<T, object>>[] includeProperties);
+        Task<IEnumerable<T>> Find(Expression<Func<T, bool>> where, params Expression<Func<T, object>>[] includeProperties);
 
         /// <summary>
         /// Retorna una entidad bajo una condición especificada
@@ -36,7 +36,7 @@ namespace RoomM.API.Core.Entity
         /// <param name="where"></param>
         /// <param name="includeProperties"></param>
         /// <returns></returns>
-        T Single(Expression<Func<T, bool>> where, params Expression<Func<T, object>>[] includeProperties);
+        Task<T> Single(Expression<Func<T, bool>> where, params Expression<Func<T, object>>[] includeProperties);
 
         /// <summary>
         /// Retorna una entidad bajo una condición especificada o null sino encontrara registros
@@ -44,7 +44,7 @@ namespace RoomM.API.Core.Entity
         /// <param name="where"></param>
         /// <param name="includeProperties"></param>
         /// <returns></returns>
-        T SingleOrDefault(Expression<Func<T, bool>> where, params Expression<Func<T, object>>[] includeProperties);
+        Task<T> SingleOrDefault(Expression<Func<T, bool>> where, params Expression<Func<T, object>>[] includeProperties);
 
         /// <summary>
         /// Retorna la primera entidad encontrada bajo una condición especificada
@@ -52,7 +52,7 @@ namespace RoomM.API.Core.Entity
         /// <param name="where"></param>
         /// <param name="includeProperties"></param>
         /// <returns></returns>
-        T First(Expression<Func<T, bool>> where, params Expression<Func<T, object>>[] includeProperties);
+        Task<T> First(Expression<Func<T, bool>> where, params Expression<Func<T, object>>[] includeProperties);
 
         /// <summary>
         /// Retorna la primera entidad encontrada bajo una condición especificada o null sino encontrara registros
@@ -60,7 +60,7 @@ namespace RoomM.API.Core.Entity
         /// <param name="where"></param>
         /// <param name="includeProperties"></param>
         /// <returns></returns>
-        T FirstOrDefault(Expression<Func<T, bool>> where, params Expression<Func<T, object>>[] includeProperties);
+        Task<T> FirstOrDefault(Expression<Func<T, bool>> where, params Expression<Func<T, object>>[] includeProperties);
 
         /// <summary>
         /// Elimina una entidad
@@ -106,7 +106,7 @@ namespace RoomM.API.Core.Entity
         /// The method is not used for returning entities.
         /// </summary>
         /// <param name="entity"></param>
-        int ExecuteSqlCommand (string query, params object[] parameters);
+        Task<int> ExecuteSqlCommand(string query, params object[] parameters);
         #endregion
     }
 }

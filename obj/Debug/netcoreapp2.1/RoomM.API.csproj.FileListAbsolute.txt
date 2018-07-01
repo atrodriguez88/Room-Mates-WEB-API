@@ -1,3 +1,4 @@
+C:\Users\ariel\source\repos\RoomM.App\RoomM.API\bin\Debug\netcoreapp2.1\nlog.config
 C:\Users\ariel\source\repos\RoomM.App\RoomM.API\bin\Debug\netcoreapp2.1\RoomM.API.deps.json
 C:\Users\ariel\source\repos\RoomM.App\RoomM.API\bin\Debug\netcoreapp2.1\RoomM.API.runtimeconfig.json
 C:\Users\ariel\source\repos\RoomM.App\RoomM.API\bin\Debug\netcoreapp2.1\RoomM.API.runtimeconfig.dev.json
@@ -11,5 +12,3 @@ C:\Users\ariel\source\repos\RoomM.App\RoomM.API\obj\Debug\netcoreapp2.1\RoomM.AP
 C:\Users\ariel\source\repos\RoomM.App\RoomM.API\obj\Debug\netcoreapp2.1\RoomM.API.RazorTargetAssemblyInfo.cache
 C:\Users\ariel\source\repos\RoomM.App\RoomM.API\obj\Debug\netcoreapp2.1\RoomM.API.dll
 C:\Users\ariel\source\repos\RoomM.App\RoomM.API\obj\Debug\netcoreapp2.1\RoomM.API.pdb
-C:\Users\ariel\source\repos\RoomM.App\RoomM.API\bin\Debug\netcoreapp2.1\nlog.config
-C:\Users\ariel\source\repos\RoomM.App\RoomM.API\obj\Debug\netcoreapp2.1\RoomM.API.csprojAssemblyReference.cache

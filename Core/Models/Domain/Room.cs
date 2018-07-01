@@ -1,3 +1,6 @@
+using Common.CustomFilters;
+using RoomM.API.Core.Models.Domain;
+using RoomM.API.Core.Models.Helper;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -5,7 +8,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RoomM.API.Core.Models
 {
-    public class Room
+    public class Room : AuditEntity, ISoftDeleted
     {
         public int Id { get; set; }
         [Required]
@@ -34,8 +37,7 @@ namespace RoomM.API.Core.Models
         public ICollection<RoomRoomFeatures> RoomFeatures { get; set; }
         public DateTime AvailableFrom { get; set; }
         public int MinStayMonths { get; set; }
-
-        public int PrefMaxAge { get; set; }
+        
         public string Smoking { get; set; }
         public string Pet { get; set; }             // Dog(s) ok, Cat(s) ok, Caged Pet(s) ok,
         public string Cleanliness { get; set; }     // Clean, Average, Messy
@@ -43,19 +45,16 @@ namespace RoomM.API.Core.Models
         public int NumberRoomatesAlready { get; set; }
 
         /* ************ Preferred Roommates ***************** */
-        public string PrefGender { get; set; }
-        public int OcupationId { get; set; }
-        public Ocupation PrefOcuppations { get; set; }
-        public int PrefMinAge { get; set; }
-        [StringLength(100)]
-        public string AdTitle { get; set; }
+        public int PreferenceId { get; set; }
+        public Preferences Preference { get; set; }
 
-        [StringLength(255, MinimumLength = 50)]
-        public string AdDescription { get; set; }
+        public bool Deleted { get; set; }
 
-        public int UserId { get; set; }
-        public ApplicationUser User { get; set; }
         // public Photo Photos { get; set; }
+
+        public int ProfileId { get; set; }
+        public Profile Profile { get; set; }
+
         public Room()
         {
             Rules = new Collection<RoomsPropertyRules>();

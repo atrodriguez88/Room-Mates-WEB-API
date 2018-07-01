@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Identity;
 
 namespace RoomM.API.Core.Models
@@ -19,18 +20,15 @@ namespace RoomM.API.Core.Models
         public string AboutMe { get; set; }
         public string Address { get; set; }
 
-        public ICollection<Room> Rooms { get; set; }
-        public ICollection<Profile> Profiles { get; set; }
+        public int ProfilesId { get; set; }
+
+        [NotMapped]
+        public Profile Profiles { get; set; }
 
         // public string Photo { get; set; }               // Change
 
         // [Required]
         // [StringLength(50)]
         // public string AdvertizeAs { get; set; }
-        public ApplicationUser()
-        {
-            Rooms = new Collection<Room>();
-            Profiles = new Collection<Profile>();
-        }
     }
 }

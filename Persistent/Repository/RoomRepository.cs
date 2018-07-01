@@ -53,14 +53,15 @@ namespace RoomM.API.Persistent
 
         public Task<List<Room>> GetRoomsByUserId(int userId)
         {
-            return context.Rooms.Where( r => r.UserId == userId)
-            .Include(r => r.PropertyFeatures)
-                .ThenInclude(rpf => rpf.PropertyFeatures)
-            .Include(r => r.Rules)
-                .ThenInclude(rpr => rpr.PropertyRules)            
-            .Include(r => r.RoomFeatures)
-                .ThenInclude(rrf => rrf.RoomFeatures)       
-            .ToListAsync();
+            //return context.Rooms.Where( r => r.UserId == userId)
+            //.Include(r => r.PropertyFeatures)
+            //    .ThenInclude(rpf => rpf.PropertyFeatures)
+            //.Include(r => r.Rules)
+            //    .ThenInclude(rpr => rpr.PropertyRules)            
+            //.Include(r => r.RoomFeatures)
+            //    .ThenInclude(rrf => rrf.RoomFeatures)       
+            //.ToListAsync();
+            return null;
         }
 
         public void Remove(Room room)

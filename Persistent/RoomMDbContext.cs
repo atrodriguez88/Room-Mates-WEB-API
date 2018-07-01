@@ -1,14 +1,15 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using RoomM.API.Core.Models;
+using RoomM.API.Core.Models.Auth;
+using System.Linq;
 
 namespace RoomM.API.Persistent
 {
     public class RoomMDbContext : IdentityDbContext<ApplicationUser>
     {
-        // Testear
-        //public DbSet<ApplicationUser> ApplicationUser { get; set; }
-        //public DbSet<ApplicationRole> ApplicationRole { get; set; }
+        public DbSet<ApplicationUser> ApplicationUser { get; set; }
+        public DbSet<ApplicationRole> ApplicationRole { get; set; }
         //public DbSet<ApplicationUserRole> ApplicationUserRole { get; set; }
 
         public DbSet<Room> Rooms { get; set; }

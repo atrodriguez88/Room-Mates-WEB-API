@@ -13,6 +13,14 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Migrations\20180701032012_Initial Migration.cs" />
+    <Compile Remove="Migrations\20180701032012_Initial Migration.Designer.cs" />
+    <Compile Remove="Migrations\20180701033220_Initial Migration.cs" />
+    <Compile Remove="Migrations\20180701033220_Initial Migration.Designer.cs" />
+    <Compile Remove="Migrations\20180701033747_Seek Data.cs" />
+    <Compile Remove="Migrations\20180701033747_Seek Data.Designer.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="6.2.2" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="3.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />

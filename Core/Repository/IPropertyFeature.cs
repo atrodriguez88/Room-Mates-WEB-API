@@ -7,6 +7,5 @@ namespace RoomM.API.Core
 {
     public interface IPropertyFeature : IRepository<PropertyFeatures>
     {
-         Task<List<PropertyFeatures>> GetPropertyFeatures();
     }
 }

@@ -6,6 +6,7 @@ using RoomM.API.Controllers.Resources;
 using RoomM.API.Core;
 using RoomM.API.Core.Models;
 using RoomM.API.Persistent;
+using RoomM.API.Service;
 
 namespace RoomM.API.Controllers
 {
@@ -13,20 +14,20 @@ namespace RoomM.API.Controllers
     public class PropertyTypeController : Controller
     {
         private readonly IMapper mapper;
-        private readonly IPropertyType repository;
-        public PropertyTypeController(IPropertyType repository, IMapper mapper)
+        private readonly IPropertyTypeService service;
+        public PropertyTypeController(IPropertyTypeService service, IMapper mapper)
         {
-            this.repository = repository;
+            this.service = service;
             this.mapper = mapper;
 
         }
         [HttpGet]
         public async Task<IActionResult> GetPropertyTypes()
         {
-            var types = await repository.GetPropertyTypes();
+            var types = await service.GetPropertyTypes();
             if(types ==null)
                 return NoContent();
-            return Ok(mapper.Map<List<PropertyType>, List<KeyValuePairResource>>(types));
+            return Ok(mapper.Map<IEnumerable<PropertyType>, IEnumerable<KeyValuePairResource>>(types));
         }
     }
 }

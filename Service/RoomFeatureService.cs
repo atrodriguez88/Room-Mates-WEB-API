@@ -8,22 +8,23 @@ using System.Threading.Tasks;
 
 namespace RoomM.API.Service
 {
-    public interface IOcupationService {
-
-        Task<IEnumerable<Ocupation>> GetOcupations();
-    }
-    public class OcupationService : IOcupationService
+    public interface IRoomFeatureService
     {
-        private readonly IOcupationRepository repository;
+        Task<IEnumerable<RoomFeatures>> GetRoomFeatures();
+    }
+
+    public class RoomFeatureService : IRoomFeatureService
+    {
+        private readonly IRoomFeature repository;
         private readonly ILoggerManager logger;
 
-        public OcupationService(IOcupationRepository repository, ILoggerManager logger)
+        public RoomFeatureService(IRoomFeature repository, ILoggerManager logger)
         {
             this.repository = repository;
             this.logger = logger;
         }
 
-        public async Task<IEnumerable<Ocupation>> GetOcupations()
+        public async Task<IEnumerable<RoomFeatures>> GetRoomFeatures()
         {
             try
             {
@@ -33,7 +34,9 @@ namespace RoomM.API.Service
             {
                 logger.LogError(e.Message);
                 return null;
-            }            
+            }
         }
     }
+
+    
 }

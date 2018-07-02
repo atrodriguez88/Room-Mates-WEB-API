@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RoomM.API.Controllers.Resources;
 using RoomM.API.Core;
+using RoomM.API.Service;
 
 namespace RoomM.API.Controllers
 {
@@ -15,10 +16,10 @@ namespace RoomM.API.Controllers
     {
         private readonly IMapper mapper;
         private readonly IUnitOfWork uow;
-        private readonly IProfileRepository repository;
-        public ProfileController(IMapper mapper, IProfileRepository repository, IUnitOfWork uow)
+        private readonly IProfileService service;
+        public ProfileController(IMapper mapper, IProfileService service, IUnitOfWork uow)
         {
-            this.repository = repository;
+            this.service = service;
             this.uow = uow;
             this.mapper = mapper;
         }
@@ -33,10 +34,10 @@ namespace RoomM.API.Controllers
             if(profile.MovingDate == null)
                 profile.MovingDate = DateTime.Now;
 
-            await repository.AddProfileAsync(profile);
+            await service.AddProfileAsync(profile);
             await uow.CompleteAsync();
 
-            profile = await repository.GetProfile(profile.Id);            
+            profile = await service.GetProfile(profile.Id);            
             return Ok(mapper.Map<Core.Models.Profile, ProfileResource>(profile));
         }
 
@@ -47,7 +48,7 @@ namespace RoomM.API.Controllers
             {
                 return BadRequest(ModelState);
             }
-            var profile = await repository.GetProfile(id);
+            var profile = await service.GetProfile(id);
             if (profile == null)
             {
                 return NotFound();
@@ -63,18 +64,18 @@ namespace RoomM.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetProfiles()
         {
-            var users = await repository.GetProfiles();
+            var users = await service.GetProfiles();
             if (users == null)
             {
                 return NoContent();
             }
-            return Ok(mapper.Map<List<Core.Models.Profile>, List<ProfileResource>>(users));
+            return Ok(mapper.Map<IEnumerable<Core.Models.Profile>, IEnumerable<ProfileResource>>(users));
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var profile = await repository.GetProfile(id);
+            var profile = await service.GetProfile(id);
             if (profile == null)
             {
                 return NotFound();
@@ -86,24 +87,24 @@ namespace RoomM.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProfile(int id)
         {
-            var profile = await repository.GetProfile(id, includeRelated: false);
+            var profile = await service.GetProfile(id);
             if (profile == null)
             {
                 return NotFound();
             }
-            repository.Remove(profile);
+            service.Remove(profile);
             await uow.CompleteAsync();
             return Ok(id);
         }
 
 
         [HttpGet("user/{userId}")]
-        public async Task<IActionResult> GetProfileByUserId(int userId)
+        public IActionResult GetProfileByUserId(int userId)
         {
-            var profilesByUser = await repository.GetProfileByUserId(userId);
-            if (profilesByUser.Count < 1)
+            var profilesByUser = service.GetProfileByUserId(userId);
+            if (profilesByUser.Count() < 1)
                 return NotFound();
-            return Ok(mapper.Map<List<Core.Models.Profile>, List<ProfileResource>>(profilesByUser));
+            return Ok(mapper.Map<IEnumerable<Core.Models.Profile>, IEnumerable<ProfileResource>>(profilesByUser));
         }
 
     }

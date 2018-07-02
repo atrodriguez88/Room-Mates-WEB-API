@@ -6,7 +6,6 @@ using RoomM.API.Core.Models;
 namespace RoomM.API.Core
 {
     public interface IRoomFeature : IRepository<RoomFeatures>
-    {
-         Task<List<RoomFeatures>> GetRoomFeatures();
+    {         
     }
 }

@@ -13,11 +13,6 @@ namespace RoomM.API.Persistent
         public RuleRepository(RoomMDbContext context) : base(context)
         {
             this.context = context;
-
-        }
-        public Task<List<PropertyRules>> GetRules()
-        {
-            return context.PropertyRules.ToListAsync();
         }
     }
 }

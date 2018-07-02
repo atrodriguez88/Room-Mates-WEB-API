@@ -23,6 +23,11 @@ namespace RoomM.API.Persistent
             : base(options)
         {
         }
+
+        public RoomMDbContext()
+        {
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

@@ -6,7 +6,6 @@ using RoomM.API.Core.Models;
 namespace RoomM.API.Core
 {
     public interface IRuleRepository : IRepository<PropertyRules>
-    {
-         Task<List<PropertyRules>> GetRules();
+    {         
     }
 }

@@ -36,17 +36,29 @@ namespace RoomM.API
         {
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IAuthRepository, AuthRepository>();
+
             services.AddScoped<IRoomFeature, RoomFeatureRepository>();
+            services.AddScoped<IRoomService, RoomService>();
+
             services.AddScoped<IPropertyType, PropertyTypeRepository>();
+            services.AddScoped<IPropertyTypeService, PropertyTypeService>();
+
             services.AddScoped<IPropertyFeature, PropertyFeaturesRepository>();
+            services.AddScoped<IPropertyFeaturesService, PropertyFeaturesService>();
 
             services.AddScoped<IOcupationService, OcupationService>();
             services.AddScoped<IOcupationRepository, OcupationRepository>();
 
             services.AddScoped<IRuleRepository, RuleRepository>();
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IRuleService, RuleService>();
+            
             services.AddScoped<IProfileRepository, ProfileRepository>();
+            services.AddScoped<IProfileService, ProfileService>();
+
             services.AddScoped<IRoomRepository, RoomRepository>();
+            services.AddScoped<IRoomService, RoomService>();
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             // Add the logger service
             services.AddSingleton<ILoggerManager, LoggerService>();

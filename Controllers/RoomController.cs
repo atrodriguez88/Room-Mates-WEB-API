@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using RoomM.API.Controllers.Resources;
 using RoomM.API.Core;
 using RoomM.API.Core.Models;
+using RoomM.API.Service;
 
 namespace Room_Mates.Controllers
 {
@@ -15,37 +16,37 @@ namespace Room_Mates.Controllers
     public class RoomController : Controller
     {
         private readonly IMapper mapper;
-        private readonly IRoomRepository repository;
+        private readonly IRoomService service;
         private readonly IUnitOfWork uow;
-        public RoomController(IMapper mapper, IRoomRepository repository, IUnitOfWork uow)
+        public RoomController(IMapper mapper, IRoomService service, IUnitOfWork uow)
         {
             this.uow = uow;
-            this.repository = repository;
+            this.service = service;
             this.mapper = mapper;
         }
         [HttpGet]
         public async Task<IActionResult> GetRooms()
         {
-            var room = await repository.GetRooms();
+            var room = await service.GetRooms();
 
             if (room == null)
             {
                 return NoContent();
             }
 
-            return Ok(mapper.Map<List<Room>, List<RoomResource>>(room));
+            return Ok(room);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetRoom(int id)
         {
-            var room = await repository.GetRoom(id);
+            var room = await service.GetRoom(id);
 
             if (room == null)
                 return NotFound();
 
-            var roomResource = mapper.Map<Room, RoomResource>(room);
-            return Ok(roomResource);
+            //var roomResource = mapper.Map<Room, RoomResource>(room);
+            return Ok(room);
         }
 
         [HttpPost]
@@ -58,10 +59,10 @@ namespace Room_Mates.Controllers
             var room = mapper.Map<SaveRoomResource, Room>(roomResource);
             room.AvailableFrom = DateTime.Now;
 
-            await repository.AddRoomAsync(room);
+            await service.AddRoomAsync(room);
             await uow.CompleteAsync();
 
-            room = await repository.GetRoom(room.Id);
+            room = await service.GetRoom(room.Id);
 
             return Ok(mapper.Map<Room, RoomResource>(room));
         }
@@ -74,7 +75,7 @@ namespace Room_Mates.Controllers
                 return BadRequest(ModelState);
             }
 
-            var room = await repository.GetRoom(id);
+            var room = await service.GetRoom(id);
             if (room == null)
             {
                 return NotFound();
@@ -91,23 +92,23 @@ namespace Room_Mates.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteRoom(int id)
         {
-            var room = await repository.GetRoom(id, includeRelated: false);
+            var room = await service.GetRoom(id);
             if (room == null)
             {
                 return NotFound();
             }
-            repository.Remove(room);
+            service.Remove(room);
             await uow.CompleteAsync();
             return Ok(id);
         }
 
         [HttpGet("user/{userId}")]
-        public async Task<IActionResult> Get(int userId)
+        public IActionResult Get(int userId)
         {
-            var roomByUser = await repository.GetRoomsByUserId(userId);
-            if(roomByUser.Count < 1)
+            var roomByUser = service.GetRoomsByUserId(userId);
+            if(roomByUser.Count() < 1)
                 return NotFound();
-            return Ok(mapper.Map<List<Room>,List<RoomResource>>(roomByUser));
+            return Ok(mapper.Map<IEnumerable<Room>,IEnumerable<RoomResource>>(roomByUser));
         }
     }
 }

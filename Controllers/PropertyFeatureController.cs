@@ -6,6 +6,7 @@ using RoomM.API.Controllers.Resources;
 using RoomM.API.Core;
 using RoomM.API.Core.Models;
 using RoomM.API.Persistent;
+using RoomM.API.Service;
 
 namespace RoomM.API.Controllers
 {
@@ -13,20 +14,20 @@ namespace RoomM.API.Controllers
     public class PropertyFeatureController : Controller
     {
         private readonly IMapper mapper;
-        private readonly IPropertyFeature repository;
-        public PropertyFeatureController(IPropertyFeature repository, IMapper mapper)
+        private readonly IPropertyFeaturesService service;
+        public PropertyFeatureController(IPropertyFeaturesService service, IMapper mapper)
         {
-            this.repository = repository;
+            this.service = service;
             this.mapper = mapper;
 
         }
         [HttpGet]
         public async Task<IActionResult> GetPropertyFeatures()
         {
-            var features = await repository.GetPropertyFeatures();
+            var features = await service.GetPropertyFeatures();
             if (features == null)
                 return NoContent();
-            return Ok(mapper.Map<List<PropertyFeatures>, List<KeyValuePairResource>>(features));
+            return Ok(mapper.Map<IEnumerable<PropertyFeatures>, IEnumerable<KeyValuePairResource>>(features));
         }
     }
 }

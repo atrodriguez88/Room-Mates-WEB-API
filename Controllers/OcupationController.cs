@@ -16,18 +16,18 @@ namespace RoomM.API.Controllers
     public class OcupationController : Controller
     {
         private readonly IMapper mapper;
-        private readonly IOcupationService repository;
+        private readonly IOcupationService service;
 
-        public OcupationController(IOcupationService repository, IMapper mapper)
+        public OcupationController(IOcupationService service, IMapper mapper)
         {
-            this.repository = repository;
+            this.service = service;
             this.mapper = mapper;
         }
         [HttpGet()]
         public async Task<IActionResult> GetOcupations()
         {
-            //var ocupations = await repository.GetOcupations();
-            var ocupations = await repository.GetOcupations();
+            //var ocupations = await service.GetOcupations();
+            var ocupations = await service.GetOcupations();
             if (ocupations == null)
                 return NoContent();
             return Ok(mapper.Map<List<Ocupation>, List<KeyValuePairResource>>(ocupations.ToList()));

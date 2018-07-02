@@ -9,18 +9,15 @@ namespace RoomM.API.Core.Entity
     public interface IRepository<T>
     {
         #region IRepository<T> Members
-        /// <summary>
-        /// Retorna un objeto del tipo AsQueryable
-        /// </summary>
-        /// <returns></returns>
-        Task<IQueryable<T>> AsQueryable();
 
         /// <summary>
         /// Retorna un objeto del tipo AsQueryable y acepta como parámetro las relaciones a incluir
         /// </summary>
         /// <param name="includeProperties"></param>
         /// <returns></returns>
-        Task<IEnumerable<T>> GetAll(params Expression<Func<T, object>>[] includeProperties);
+        Task<IEnumerable<T>> GetAll();
+
+        IAsyncEnumerable<T> Include(Expression<Func<T, object>> where);
 
         /// <summary>
         /// Retorna un objeto del tipo AsQueryable bajo una condición que especifiques como parámetro
@@ -28,7 +25,7 @@ namespace RoomM.API.Core.Entity
         /// <param name="where"></param>
         /// <param name="includeProperties"></param>
         /// <returns></returns>
-        Task<IEnumerable<T>> Find(Expression<Func<T, bool>> where, params Expression<Func<T, object>>[] includeProperties);
+        IEnumerable<T> Find(Expression<Func<T, bool>> where);
 
         /// <summary>
         /// Retorna una entidad bajo una condición especificada
@@ -36,7 +33,7 @@ namespace RoomM.API.Core.Entity
         /// <param name="where"></param>
         /// <param name="includeProperties"></param>
         /// <returns></returns>
-        Task<T> Single(Expression<Func<T, bool>> where, params Expression<Func<T, object>>[] includeProperties);
+        Task<T> Single(Expression<Func<T, bool>> where);
 
         /// <summary>
         /// Retorna una entidad bajo una condición especificada o null sino encontrara registros
@@ -44,7 +41,7 @@ namespace RoomM.API.Core.Entity
         /// <param name="where"></param>
         /// <param name="includeProperties"></param>
         /// <returns></returns>
-        Task<T> SingleOrDefault(Expression<Func<T, bool>> where, params Expression<Func<T, object>>[] includeProperties);
+        Task<T> SingleOrDefault(Expression<Func<T, bool>> where);
 
         /// <summary>
         /// Retorna la primera entidad encontrada bajo una condición especificada
@@ -52,7 +49,7 @@ namespace RoomM.API.Core.Entity
         /// <param name="where"></param>
         /// <param name="includeProperties"></param>
         /// <returns></returns>
-        Task<T> First(Expression<Func<T, bool>> where, params Expression<Func<T, object>>[] includeProperties);
+        Task<T> First(Expression<Func<T, bool>> where);
 
         /// <summary>
         /// Retorna la primera entidad encontrada bajo una condición especificada o null sino encontrara registros
@@ -60,7 +57,7 @@ namespace RoomM.API.Core.Entity
         /// <param name="where"></param>
         /// <param name="includeProperties"></param>
         /// <returns></returns>
-        Task<T> FirstOrDefault(Expression<Func<T, bool>> where, params Expression<Func<T, object>>[] includeProperties);
+        Task<T> FirstOrDefault(Expression<Func<T, bool>> where);
 
         /// <summary>
         /// Elimina una entidad
@@ -72,7 +69,7 @@ namespace RoomM.API.Core.Entity
         /// Registra una entidad
         /// </summary>
         /// <param name="entity"></param>
-        void Insert(T entity);
+        Task Insert(T entity);
 
         /// <summary>
         /// Actualiza una entidad

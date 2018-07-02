@@ -8,6 +8,7 @@ using RoomM.API.Controllers.Resources;
 using RoomM.API.Core;
 using RoomM.API.Core.Models;
 using RoomM.API.Persistent;
+using RoomM.API.Service;
 
 namespace RoomM.API.Controllers
 {
@@ -16,21 +17,21 @@ namespace RoomM.API.Controllers
     {
         private readonly RoomMDbContext context;
         private readonly IMapper mapper;
-        private readonly IRuleRepository repository;
-        public RuleController(RoomMDbContext context, IMapper mapper, IRuleRepository repository)
+        private readonly IRuleService service;
+        public RuleController(RoomMDbContext context, IMapper mapper, IRuleService service)
         {
-            this.repository = repository;
+            this.service = service;
             this.mapper = mapper;
             this.context = context;
         }
         [HttpGet()]
         public async Task<IActionResult> GetRules()
         {
-            var rules = await repository.GetRules();
+            var rules = await service.GetRules();
 
             if(rules == null)
                 return NoContent();
-            return Ok(mapper.Map<List<PropertyRules>, List<KeyValuePairResource>>(rules));
+            return Ok(mapper.Map<IEnumerable<PropertyRules>, IEnumerable<KeyValuePairResource>>(rules));
         }
     }
 }

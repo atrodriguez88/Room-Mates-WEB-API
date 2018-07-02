@@ -14,10 +14,6 @@ namespace RoomM.API.Persistent
         {
             this.context = context;
 
-        }
-        public Task<List<PropertyFeatures>> GetPropertyFeatures()
-        {
-            return context.PropertyFeatures.ToListAsync();
-        }
+        }        
     }
 }

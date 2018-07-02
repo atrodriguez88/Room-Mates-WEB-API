@@ -18,58 +18,45 @@ namespace RoomM.API.Persistent.Entity
             Context = context;
         }
 
-        private IQueryable<T> PerformInclusions(IEnumerable<Expression<Func<T, object>>> includeProperties,
-                                                       IQueryable<T> query)
-        {
-            return includeProperties.Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
-        }
-
         #region IRepository<T> Members
-        public async Task<IQueryable<T>> AsQueryable()
+        private DbSet<T> DbSet()
         {
-            var list = await Context.Set<T>().ToListAsync();
-            return list.AsQueryable();
+            return Context.Set<T>();
         }
 
-        public async Task<IEnumerable<T>> GetAll(params Expression<Func<T, object>>[] includeProperties)
+        public IAsyncEnumerable<T> Include(Expression<Func<T, object>> where)
         {
-            IQueryable<T> query = await AsQueryable();
-            return PerformInclusions(includeProperties, query);
+           return DbSet().Include(where).ToAsyncEnumerable();
         }
 
-        public async Task<IEnumerable<T>> Find(Expression<Func<T, bool>> where, params Expression<Func<T, object>>[] includeProperties)
+        public async Task<IEnumerable<T>> GetAll()
         {
-            IQueryable<T> query = await AsQueryable();
-            query = PerformInclusions(includeProperties, query);
-            return query.Where(where);
+           return await DbSet().ToListAsync();
         }
 
-        public async Task<T> Single(Expression<Func<T, bool>> where, params Expression<Func<T, object>>[] includeProperties)
+        public IEnumerable<T> Find(Expression<Func<T, bool>> where)
         {
-            IQueryable<T> query = await AsQueryable();
-            query = PerformInclusions(includeProperties, query);
-            return await query.SingleAsync(where);
+            return DbSet().Where(where);
         }
 
-        public async Task<T> SingleOrDefault(Expression<Func<T, bool>> where, params Expression<Func<T, object>>[] includeProperties)
+        public async Task<T> Single(Expression<Func<T, bool>> where)
         {
-            IQueryable<T> query = await AsQueryable();
-            query = PerformInclusions(includeProperties, query);
-            return await query.SingleOrDefaultAsync(where);
+            return await DbSet().SingleAsync(where);
         }
 
-        public async Task<T> First(Expression<Func<T, bool>> where, params Expression<Func<T, object>>[] includeProperties)
+        public async Task<T> SingleOrDefault(Expression<Func<T, bool>> where)
         {
-            IQueryable<T> query = await AsQueryable();
-            query = PerformInclusions(includeProperties, query);
-            return await query.FirstAsync(where);
+            return await DbSet().SingleAsync(where);
         }
 
-        public async Task<T> FirstOrDefault(Expression<Func<T, bool>> where, params Expression<Func<T, object>>[] includeProperties)
+        public async Task<T> First(Expression<Func<T, bool>> where)
         {
-            IQueryable<T> query = await AsQueryable();
-            query = PerformInclusions(includeProperties, query);
-            return await query.FirstOrDefaultAsync(where);
+            return await DbSet().FirstAsync(where);
+        }
+
+        public async Task<T> FirstOrDefault(Expression<Func<T, bool>> where)
+        {
+            return await DbSet().FirstOrDefaultAsync(where);
         }
 
         public void Delete(T entity)
@@ -78,23 +65,23 @@ namespace RoomM.API.Persistent.Entity
             {
                 ((ISoftDeleted)entity).Deleted = true;
 
-                Context.Set<T>().Attach(entity);
+                DbSet().Attach(entity);
                 Context.Entry(entity).State = EntityState.Modified;
             }
             else
             {
-                Context.Set<T>().Remove(entity);
+                DbSet().Remove(entity);
             }
         }
 
-        public void Insert(T entity)
+        public async Task Insert(T entity)
         {
-            Context.Set<T>().AddAsync(entity);
+            await DbSet().AddAsync(entity);
         }
 
         public void Update(T entity)
         {
-            Context.Set<T>().Attach(entity);
+            DbSet().Attach(entity);
             Context.Entry(entity).State = EntityState.Modified;
         }
 
@@ -118,7 +105,7 @@ namespace RoomM.API.Persistent.Entity
         #region SQL Queries
         public virtual IQueryable<T> SelectQuery(string query, params object[] parameters)
         {
-            return Context.Set<T>().FromSql(query, parameters).AsQueryable();
+            return DbSet().FromSql(query, parameters).AsQueryable();
         }
 
         public virtual async Task<int> ExecuteSqlCommand(string query, params object[] parameters)

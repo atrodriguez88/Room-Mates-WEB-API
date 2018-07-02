@@ -13,11 +13,6 @@ namespace RoomM.API.Persistent
         public RoomFeatureRepository(RoomMDbContext context) : base(context)
         {
             this.context = context;
-
-        }
-        public Task<List<RoomFeatures>> GetRoomFeatures()
-        {
-            return context.RoomFeatures.ToListAsync();
         }
     }
 }

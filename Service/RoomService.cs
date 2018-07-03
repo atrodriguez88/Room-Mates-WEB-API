@@ -48,7 +48,7 @@ namespace RoomM.API.Service
         {
             try
             {
-                var e = await repository.Include(r => r.PropertyType).SingleOrDefault(r => r.Id == id);
+                var e = await repository.GetRoom(id);
                 return e;
             }
             catch (Exception e)
@@ -62,8 +62,7 @@ namespace RoomM.API.Service
         {
             try
             {
-                //x => x.PropertyType, x => x.Rules, x => x.PropertyFeatures, x => x.RoomFeatures
-                return await repository.GetAll();
+                return await repository.GetRooms();
             }
             catch (Exception e)
             {

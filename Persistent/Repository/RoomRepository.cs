@@ -15,5 +15,33 @@ namespace RoomM.API.Persistent
         {
             this.context = context;
         }
+
+        public async Task<Room> GetRoom(int id)
+        {
+            return await context.Rooms
+                                        .Include(r => r.PropertyType)
+                                        .Include(r => r.Preference)
+                                        .Include(r => r.Rules)
+                                             .ThenInclude(rpr => rpr.PropertyRules)
+                                        .Include(r => r.PropertyFeatures)
+                                            .ThenInclude(rpf => rpf.PropertyFeatures)
+                                        .Include(r => r.RoomFeatures)
+                                            .ThenInclude(rrf => rrf.RoomFeatures)
+                                        .SingleOrDefaultAsync(x => x.Id == id);
+        }
+
+        public async Task<IEnumerable<Room>> GetRooms()
+        {
+            return await context.Rooms
+                                        .Include(r => r.PropertyType)
+                                        .Include(r => r.Preference)
+                                        .Include(r => r.Rules)
+                                             .ThenInclude(rpr => rpr.PropertyRules)
+                                        .Include(r => r.PropertyFeatures)
+                                            .ThenInclude(rpf => rpf.PropertyFeatures)
+                                        .Include(r => r.RoomFeatures)
+                                            .ThenInclude(rrf => rrf.RoomFeatures)
+                                        .ToListAsync();
+        }
     }
 }

@@ -27,14 +27,14 @@ namespace Room_Mates.Controllers
         [HttpGet]
         public async Task<IActionResult> GetRooms()
         {
-            var room = await service.GetRooms();
+            var rooms = await service.GetRooms();
 
-            if (room == null)
+            if (rooms == null)
             {
                 return NoContent();
             }
-
-            return Ok(room);
+            var roomResources = Mapper.Map<IEnumerable<Room>, IEnumerable<RoomResource>>(rooms);
+            return Ok(roomResources);
         }
 
         [HttpGet("{id}")]
@@ -45,8 +45,8 @@ namespace Room_Mates.Controllers
             if (room == null)
                 return NotFound();
 
-            //var roomResource = mapper.Map<Room, RoomResource>(room);
-            return Ok(room);
+            var roomResource = mapper.Map<Room, RoomResource>(room);
+            return Ok(roomResource);
         }
 
         [HttpPost]

@@ -24,11 +24,6 @@ namespace RoomM.API.Persistent.Entity
             return Context.Set<T>();
         }
 
-        public IAsyncEnumerable<T> Include(Expression<Func<T, object>> where)
-        {
-           return DbSet().Include(where).ToAsyncEnumerable();
-        }
-
         public async Task<IEnumerable<T>> GetAll()
         {
            return await DbSet().ToListAsync();

@@ -44,7 +44,8 @@ namespace RoomM.API.Service
         {
             try
             {
-                return await repository.Include(x => x.Ocupation).SingleOrDefault(x => x.Id == id);
+                var test =  await repository.GetProfile(id);
+                return test;
             }
             catch (Exception e)
             {
@@ -70,7 +71,7 @@ namespace RoomM.API.Service
         {
             try
             {
-                return await repository.GetAll();
+                return await repository.GetProfiles();
             }
             catch (Exception e)
             {

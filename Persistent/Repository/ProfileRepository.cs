@@ -15,5 +15,15 @@ namespace RoomM.API.Persistent
         {
             this.context = context;
         }
+
+        public async Task<Profile> GetProfile(int id)
+        {
+            return await context.Profiles.Include(p => p.Ocupation).SingleOrDefaultAsync(p => p.Id == id);
+        }
+
+        public async Task<IEnumerable<Profile>> GetProfiles()
+        {
+            return await context.Profiles.Include(p => p.Ocupation).ToListAsync();
+        }
     }
 }

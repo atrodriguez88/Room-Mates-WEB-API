@@ -17,8 +17,7 @@ namespace RoomM.API.Core.Entity
         /// <returns></returns>
         Task<IEnumerable<T>> GetAll();
 
-        IAsyncEnumerable<T> Include(Expression<Func<T, object>> where);
-
+        
         /// <summary>
         /// Retorna un objeto del tipo AsQueryable bajo una condición que especifiques como parámetro
         /// </summary>

@@ -27,7 +27,7 @@ namespace RoomM.API.Persistent
                                             .ThenInclude(rpf => rpf.PropertyFeatures)
                                         .Include(r => r.RoomFeatures)
                                             .ThenInclude(rrf => rrf.RoomFeatures)
-                                        .SingleOrDefaultAsync(x => x.Id == id);
+                                        .SingleOrDefaultAsync(x => x.Id == id && x.Deleted == false);
         }
 
         public async Task<IEnumerable<Room>> GetRooms()
@@ -41,6 +41,7 @@ namespace RoomM.API.Persistent
                                             .ThenInclude(rpf => rpf.PropertyFeatures)
                                         .Include(r => r.RoomFeatures)
                                             .ThenInclude(rrf => rrf.RoomFeatures)
+                                        .Where(x => x.Deleted == false)
                                         .ToListAsync();
         }
     }

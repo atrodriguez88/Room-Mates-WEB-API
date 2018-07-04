@@ -18,12 +18,12 @@ namespace RoomM.API.Persistent
 
         public async Task<Profile> GetProfile(int id)
         {
-            return await context.Profiles.Include(p => p.Ocupation).SingleOrDefaultAsync(p => p.Id == id);
+            return await context.Profiles.Include(p => p.Ocupation).SingleOrDefaultAsync(p => p.Id == id && p.Deleted == false);
         }
 
         public async Task<IEnumerable<Profile>> GetProfiles()
         {
-            return await context.Profiles.Include(p => p.Ocupation).ToListAsync();
+            return await context.Profiles.Include(p => p.Ocupation).Where(p => p.Deleted == false).ToListAsync();
         }
     }
 }

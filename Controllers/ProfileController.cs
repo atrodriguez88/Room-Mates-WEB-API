@@ -35,6 +35,10 @@ namespace RoomM.API.Controllers
             if(profile.MovingDate == null)
                 profile.MovingDate = DateTime.Now;
 
+            profile.CreatedAt = DateTime.Now;
+            profile.CreatedBy = profile.UserId.ToString();
+
+
             await service.AddProfileAsync(profile);
             await uow.CompleteAsync();
 
@@ -56,6 +60,9 @@ namespace RoomM.API.Controllers
             }
             mapper.Map<SaveProfileResource, Core.Models.Profile>(profileResource, profile);
             profile.MovingDate = DateTime.Now;
+
+            profile.UpdatedAt = DateTime.Now;
+            profile.UpdatedBy = profile.UserId.ToString();
 
             await uow.CompleteAsync();
 
@@ -94,6 +101,9 @@ namespace RoomM.API.Controllers
                 return NotFound();
             }
             service.Remove(profile);
+
+            profile.DeletedAt = DateTime.Now;
+            profile.DeletedBy = profile.UserId.ToString();
             await uow.CompleteAsync();
             return Ok(id);
         }

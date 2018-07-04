@@ -63,6 +63,9 @@ namespace Room_Mates.Controllers
 
             room.PropertyType = await propertyService.FirstOrDefault( p => p.Id == roomResource.PropertyId);
 
+            room.CreatedAt = DateTime.Now;
+            room.CreatedBy = room.ProfileId.ToString();
+
             await service.AddRoomAsync(room);
             await uow.CompleteAsync();
 
@@ -89,6 +92,10 @@ namespace Room_Mates.Controllers
             room.AvailableFrom = DateTime.Now;
             room.PropertyType = await propertyService.FirstOrDefault(p => p.Id == roomResource.PropertyId);
 
+            room.UpdatedAt = DateTime.Now;
+            room.CreatedBy = room.ProfileId.ToString();
+
+
             await uow.CompleteAsync();
 
             return Ok(mapper.Map<Room, RoomResource>(room));
@@ -103,6 +110,10 @@ namespace Room_Mates.Controllers
                 return NotFound();
             }
             service.Remove(room);
+
+            room.DeletedAt = DateTime.Now;
+            room.DeletedBy = room.ProfileId.ToString();
+
             await uow.CompleteAsync();
             return Ok(id);
         }

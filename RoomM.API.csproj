@@ -19,6 +19,10 @@
     <Compile Remove="Migrations\20180701033220_Initial Migration.Designer.cs" />
     <Compile Remove="Migrations\20180701033747_Seek Data.cs" />
     <Compile Remove="Migrations\20180701033747_Seek Data.Designer.cs" />
+    <Compile Remove="Migrations\20180704022647_ModifyAudit1.cs" />
+    <Compile Remove="Migrations\20180704022647_ModifyAudit1.Designer.cs" />
+    <Compile Remove="Migrations\20180704030241_RoomModify.cs" />
+    <Compile Remove="Migrations\20180704030241_RoomModify.Designer.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="6.2.2" />

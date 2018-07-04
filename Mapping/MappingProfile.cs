@@ -2,6 +2,7 @@ using System.Linq;
 using AutoMapper;
 using RoomM.API.Controllers.Resources;
 using RoomM.API.Core.Models;
+using RoomM.API.Core.Models.Domain;
 
 namespace RoomM.API.Mapping
 {
@@ -10,6 +11,7 @@ namespace RoomM.API.Mapping
         public MappingProfile()
         {
             // Domain to API (GET)
+            CreateMap<Preferences, PreferencesResource>();
             CreateMap<ApplicationUser, ApplicationUserResource>();
             CreateMap<PropertyType, KeyValuePairResource>();
             CreateMap<RoomFeatures, KeyValuePairResource>();
@@ -32,8 +34,10 @@ namespace RoomM.API.Mapping
             //API to Domain (POST, PUT)
             CreateMap<SaveApplicationUserResource, ApplicationUser>();
             CreateMap<ApplicationUserResource, ApplicationUser>();
+            CreateMap<PreferencesResource, Preferences>()
+            .ForMember(p => p.Id, opt => opt.Ignore());
             CreateMap<KeyValuePairResource, PropertyType>()
-            .ForMember(pr => pr.Id, opt => opt.Ignore());
+            .ForMember(pt => pt.Id, opt => opt.Ignore());
             CreateMap<KeyValuePairResource, RoomFeatures>()
             .ForMember(r => r.Id, opt => opt.Ignore());
             CreateMap<KeyValuePairResource, Ocupation>()

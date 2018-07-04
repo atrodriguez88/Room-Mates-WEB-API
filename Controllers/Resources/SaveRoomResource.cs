@@ -6,7 +6,7 @@ namespace RoomM.API.Controllers.Resources
 {
     public class SaveRoomResource
     {
-         public int Id { get; set; }
+        public int Id { get; set; }
         public string Address { get; set; }
         public int PropertyId { get; set; }
         public int NumberBedrooms { get; set; }
@@ -23,7 +23,6 @@ namespace RoomM.API.Controllers.Resources
         public DateTime AvailableFrom { get; set; }
         public int MinStayMonths { get; set; }
 
-        public int PrefMaxAge { get; set; }
         public string Smoking { get; set; }
         public string Pet { get; set; }             // Dog(s) ok, Cat(s) ok, Caged Pet(s) ok,
         public string Cleanliness { get; set; }     // Clean, Average, Messy
@@ -31,13 +30,9 @@ namespace RoomM.API.Controllers.Resources
         public int NumberRoomatesAlready { get; set; }
 
         /* ************ Preferred Roommates ***************** */
-        public string PrefGender { get; set; }
-        public int OcupationId { get; set; }
-        public int PrefMinAge { get; set; }
-        public string AdTitle { get; set; }
-        public string AdDescription { get; set; }
+        public PreferencesResource Preference { get; set; }
 
-        public int UserId { get; set; }
+        public int ProfileId { get; set; }
         public SaveRoomResource()
         {
             PropertyFeatures = new Collection<int>();

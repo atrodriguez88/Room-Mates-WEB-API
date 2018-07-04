@@ -17,6 +17,7 @@ namespace RoomM.API.Controllers
         private readonly IMapper mapper;
         private readonly IUnitOfWork uow;
         private readonly IProfileService service;
+
         public ProfileController(IMapper mapper, IProfileService service, IUnitOfWork uow)
         {
             this.service = service;

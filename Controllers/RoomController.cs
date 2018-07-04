@@ -17,11 +17,13 @@ namespace Room_Mates.Controllers
     {
         private readonly IMapper mapper;
         private readonly IRoomService service;
+        private readonly IPropertyType propertyService;
         private readonly IUnitOfWork uow;
-        public RoomController(IMapper mapper, IRoomService service, IUnitOfWork uow)
+        public RoomController(IMapper mapper, IRoomService service, IPropertyType propertyService,  IUnitOfWork uow)
         {
             this.uow = uow;
             this.service = service;
+            this.propertyService = propertyService;
             this.mapper = mapper;
         }
         [HttpGet]
@@ -59,6 +61,8 @@ namespace Room_Mates.Controllers
             var room = mapper.Map<SaveRoomResource, Room>(roomResource);
             room.AvailableFrom = DateTime.Now;
 
+            room.PropertyType = await propertyService.FirstOrDefault( p => p.Id == roomResource.PropertyId);
+
             await service.AddRoomAsync(room);
             await uow.CompleteAsync();
 
@@ -81,8 +85,9 @@ namespace Room_Mates.Controllers
                 return NotFound();
             }
 
-            mapper.Map<SaveRoomResource, Room>(roomResource, room);
+            mapper.Map(roomResource, room);
             room.AvailableFrom = DateTime.Now;
+            room.PropertyType = await propertyService.FirstOrDefault(p => p.Id == roomResource.PropertyId);
 
             await uow.CompleteAsync();
 

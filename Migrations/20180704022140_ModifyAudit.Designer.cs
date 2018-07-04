@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RoomM.API.Persistent;
 
 namespace RoomM.API.Migrations
 {
     [DbContext(typeof(RoomMDbContext))]
-    partial class RoomMDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180704022140_ModifyAudit")]
+    partial class ModifyAudit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

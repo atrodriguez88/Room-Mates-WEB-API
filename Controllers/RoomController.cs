@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using RoomM.API.Controllers.Resources;
 using RoomM.API.Core;
 using RoomM.API.Core.Models;
+using RoomM.API.Core.Models.Helper;
 using RoomM.API.Service;
 
 namespace Room_Mates.Controllers
@@ -27,9 +28,10 @@ namespace Room_Mates.Controllers
             this.mapper = mapper;
         }
         [HttpGet]
-        public async Task<IActionResult> GetRooms()
+        public async Task<IActionResult> GetRooms(FilterRoomResource filterRoomResource)
         {
-            var rooms = await service.GetRooms();
+            var filter = Mapper.Map<FilterRoomResource, FilterRoom>(filterRoomResource);
+            var rooms = await service.GetRooms(filter);
 
             if (rooms == null)
             {

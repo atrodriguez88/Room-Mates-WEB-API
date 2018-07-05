@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RoomM.API.Controllers.Resources;
 using RoomM.API.Core;
+using RoomM.API.Core.Models.Helper;
 using RoomM.API.Service;
 
 namespace RoomM.API.Controllers
@@ -70,9 +71,10 @@ namespace RoomM.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetProfiles()
+        public async Task<IActionResult> GetProfiles(FilterProfileResource filterResource)
         {
-            var users = await service.GetProfiles();
+            var filter = Mapper.Map<FilterProfileResource, FilterProfile>(filterResource);
+            var users = await service.GetProfiles(filter);
             if (users == null)
             {
                 return NoContent();

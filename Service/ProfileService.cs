@@ -1,6 +1,7 @@
 ﻿using RoomM.API.Core;
 using RoomM.API.Core.Log;
 using RoomM.API.Core.Models;
+using RoomM.API.Core.Models.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace RoomM.API.Service
     {
         Task<Profile> GetProfile(int id);
         IEnumerable<Profile> GetProfileByUserId(int userId);
-        Task<IEnumerable<Profile>> GetProfiles();
+        Task<IEnumerable<Profile>> GetProfiles(FilterProfile filter);
 
         Task AddProfileAsync(Profile profile);
         void Remove(Profile profile);
@@ -67,11 +68,11 @@ namespace RoomM.API.Service
             }
         }
 
-        public async Task<IEnumerable<Profile>> GetProfiles()
+        public async Task<IEnumerable<Profile>> GetProfiles(FilterProfile filter)
         {
             try
             {
-                return await repository.GetProfiles();
+                return await repository.GetProfiles(filter);
             }
             catch (Exception e)
             {

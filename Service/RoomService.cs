@@ -2,6 +2,7 @@
 using RoomM.API.Core;
 using RoomM.API.Core.Log;
 using RoomM.API.Core.Models;
+using RoomM.API.Core.Models.Helper;
 using RoomM.API.Persistent;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace RoomM.API.Service
 {
     public interface IRoomService
     {
-        Task<IEnumerable<Room>> GetRooms();
+        Task<IEnumerable<Room>> GetRooms(FilterRoom filterRoom);
         Task<Room> GetRoom(int id);
         Task AddRoomAsync(Room room);
         void Remove(Room room);
@@ -58,11 +59,11 @@ namespace RoomM.API.Service
             }
         }
 
-        public async Task<IEnumerable<Room>> GetRooms()
+        public async Task<IEnumerable<Room>> GetRooms(FilterRoom filterRoom)
         {
             try
             {
-                return await repository.GetRooms();
+                return await repository.GetRooms(filterRoom);
             }
             catch (Exception e)
             {

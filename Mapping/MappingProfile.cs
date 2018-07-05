@@ -3,6 +3,7 @@ using AutoMapper;
 using RoomM.API.Controllers.Resources;
 using RoomM.API.Core.Models;
 using RoomM.API.Core.Models.Domain;
+using RoomM.API.Core.Models.Helper;
 
 namespace RoomM.API.Mapping
 {
@@ -32,6 +33,8 @@ namespace RoomM.API.Mapping
 
 
             //API to Domain (POST, PUT)
+            CreateMap<FilterProfileResource, FilterProfile>();
+            CreateMap<FilterRoomResource, FilterRoom>();
             CreateMap<SaveApplicationUserResource, ApplicationUser>();
             CreateMap<ApplicationUserResource, ApplicationUser>();
             CreateMap<PreferencesResource, Preferences>()

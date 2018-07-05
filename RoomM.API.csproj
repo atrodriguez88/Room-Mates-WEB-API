@@ -39,6 +39,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Common\Helps\" />
+    <Folder Include="Common\Helpers\" />
   </ItemGroup>
 </Project>

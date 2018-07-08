@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace RoomM.API.Controllers.Resources
+﻿namespace RoomM.API.Controllers.Resources
 {
     public class PhotoResource
     {

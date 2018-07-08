@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 using RoomM.API.Core.Entity;
 using RoomM.API.Core.Models;
 using RoomM.API.Core.Models.Domain;
-using RoomM.API.Core.Models.Helper;
+using RoomM.API.Core.QueryString;
 
-namespace RoomM.API.Core
+namespace RoomM.API.Core.Repository
 {
     public interface IProfileRepository : IRepository<Profile>
     {

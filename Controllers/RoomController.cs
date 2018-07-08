@@ -4,14 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using RoomM.API.Controllers.Resources;
 using RoomM.API.Core;
-using RoomM.API.Core.Models;
-using RoomM.API.Core.Models.Helper;
+using RoomM.API.Core.Models.Domain;
+using RoomM.API.Core.QueryString;
+using RoomM.API.Core.Repository;
 using RoomM.API.Service;
 
-namespace Room_Mates.Controllers
+namespace RoomM.API.Controllers
 {
     [Route("/api/rooms")]
     public class RoomController : Controller
@@ -124,7 +124,7 @@ namespace Room_Mates.Controllers
         public IActionResult Get(int userId)
         {
             var roomByUser = service.GetRoomsByUserId(userId);
-            if(roomByUser.Count() < 1)
+            if(!roomByUser.Any())
                 return NotFound();
             return Ok(mapper.Map<IEnumerable<Room>,IEnumerable<RoomResource>>(roomByUser));
         }

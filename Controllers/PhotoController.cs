@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -26,7 +24,7 @@ namespace RoomM.API.Controllers
         private readonly IUnitOfWork uow;
         private readonly IMapper mapper;
         private readonly int MAX_BYTES = 5 * 1024 * 1024;
-        private readonly string[] ACCEPTED_FILE_TYPE = new[] { ".jpg", ".jpge", ".png"};
+        private readonly string[] ACCEPTED_FILE_TYPE = { ".jpg", ".jpge", ".png"};
 
         public PhotoController(IHostingEnvironment host, IRoomService roomService, IProfileService profileService, IUnitOfWork uow, IMapper mapper)
         {

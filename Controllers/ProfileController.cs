@@ -4,11 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using RoomM.API.Controllers.Resources;
 using RoomM.API.Core;
-using RoomM.API.Core.Models.Helper;
+using RoomM.API.Core.QueryString;
 using RoomM.API.Service;
+using Profile = RoomM.API.Core.Models.Domain.Profile;
 
 namespace RoomM.API.Controllers
 {
@@ -32,9 +32,7 @@ namespace RoomM.API.Controllers
             {
                 return BadRequest(ModelState);
             }
-            var profile = mapper.Map<SaveProfileResource, Core.Models.Profile>(profileResource);
-            if(profile.MovingDate == null)
-                profile.MovingDate = DateTime.Now;
+            var profile = mapper.Map<SaveProfileResource, Profile>(profileResource);
 
             profile.CreatedAt = DateTime.Now;
             profile.CreatedBy = profile.UserId.ToString();
@@ -44,7 +42,7 @@ namespace RoomM.API.Controllers
             await uow.CompleteAsync();
 
             profile = await service.GetProfile(profile.Id);            
-            return Ok(mapper.Map<Core.Models.Profile, ProfileResource>(profile));
+            return Ok(mapper.Map<Profile, ProfileResource>(profile));
         }
 
         [HttpPut("{id}")]
@@ -59,7 +57,7 @@ namespace RoomM.API.Controllers
             {
                 return NotFound();
             }
-            mapper.Map<SaveProfileResource, Core.Models.Profile>(profileResource, profile);
+            mapper.Map(profileResource, profile);
             profile.MovingDate = DateTime.Now;
 
             profile.UpdatedAt = DateTime.Now;
@@ -67,7 +65,7 @@ namespace RoomM.API.Controllers
 
             await uow.CompleteAsync();
 
-            return Ok(mapper.Map<Core.Models.Profile, ProfileResource>(profile));
+            return Ok(mapper.Map<Profile, ProfileResource>(profile));
         }
 
         [HttpGet]
@@ -79,7 +77,7 @@ namespace RoomM.API.Controllers
             {
                 return NoContent();
             }
-            return Ok(mapper.Map<IEnumerable<Core.Models.Profile>, IEnumerable<ProfileResource>>(users));
+            return Ok(mapper.Map<IEnumerable<Profile>, IEnumerable<ProfileResource>>(users));
         }
 
         [HttpGet("{id}")]
@@ -90,7 +88,7 @@ namespace RoomM.API.Controllers
             {
                 return NotFound();
             }
-            var profileResource = mapper.Map<Core.Models.Profile, ProfileResource>(profile);
+            var profileResource = mapper.Map<Profile, ProfileResource>(profile);
             return Ok(profileResource);
         }
 
@@ -115,9 +113,9 @@ namespace RoomM.API.Controllers
         public IActionResult GetProfileByUserId(int userId)
         {
             var profilesByUser = service.GetProfileByUserId(userId);
-            if (profilesByUser.Count() < 1)
+            if (!profilesByUser.Any())
                 return NotFound();
-            return Ok(mapper.Map<IEnumerable<Core.Models.Profile>, IEnumerable<ProfileResource>>(profilesByUser));
+            return Ok(mapper.Map<IEnumerable<Profile>, IEnumerable<ProfileResource>>(profilesByUser));
         }
 
     }

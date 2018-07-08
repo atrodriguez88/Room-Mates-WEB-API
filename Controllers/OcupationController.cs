@@ -3,11 +3,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using RoomM.API.Controllers.Resources;
-using RoomM.API.Core;
-using RoomM.API.Core.Models;
-using RoomM.API.Persistent;
+using RoomM.API.Core.Models.Domain;
 using RoomM.API.Service;
 
 namespace RoomM.API.Controllers

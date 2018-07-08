@@ -15,8 +15,10 @@ using Microsoft.IdentityModel.Tokens;
 using NLog;
 using RoomM.API.Core;
 using RoomM.API.Core.Log;
-using RoomM.API.Core.Models;
+using RoomM.API.Core.Models.Auth;
+using RoomM.API.Core.Repository;
 using RoomM.API.Persistent;
+using RoomM.API.Persistent.Repository;
 using RoomM.API.Service;
 
 namespace RoomM.API
@@ -92,7 +94,7 @@ namespace RoomM.API
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1); ;
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddCors();
         }
         

@@ -1,14 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
-using RoomM.API.Core;
-using RoomM.API.Core.Log;
+﻿using RoomM.API.Core.Log;
 using RoomM.API.Core.Models;
 using RoomM.API.Core.Models.Domain;
-using RoomM.API.Core.Models.Helper;
-using RoomM.API.Persistent;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using RoomM.API.Core.QueryString;
+using RoomM.API.Core.Repository;
 
 namespace RoomM.API.Service
 {
@@ -25,13 +22,11 @@ namespace RoomM.API.Service
     {
         private readonly IRoomRepository repository;
         private readonly ILoggerManager logger;
-        private readonly RoomMDbContext context;
 
-        public RoomService(IRoomRepository repository, ILoggerManager logger, RoomMDbContext context)
+        public RoomService(IRoomRepository repository, ILoggerManager logger)
         {
             this.repository = repository;
             this.logger = logger;
-            this.context = context;
         }
 
         public async Task AddRoomAsync(Room room)

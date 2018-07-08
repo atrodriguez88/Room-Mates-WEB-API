@@ -11,5 +11,8 @@ namespace RoomM.API.Controllers.Resources
         public string Gender { get; set; }
         public int? Ocupation { get; set; }
         public string Address { get; set; }
+
+        public string SortBy { get; set; }
+        public bool IsSortAsc { get; set; }
     }
 }

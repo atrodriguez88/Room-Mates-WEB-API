@@ -1,8 +1,8 @@
+using System.Collections.Generic;
 using Common.CustomFilters;
 using RoomM.API.Core.Models.Helper;
-using System.Collections.Generic;
 
-namespace RoomM.API.Core.Models
+namespace RoomM.API.Core.Models.Domain
 {
     public class PropertyRules : AuditEntity, ISoftDeleted
     {

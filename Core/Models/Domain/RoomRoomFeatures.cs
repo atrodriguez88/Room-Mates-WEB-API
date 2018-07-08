@@ -1,4 +1,4 @@
-namespace RoomM.API.Core.Models
+namespace RoomM.API.Core.Models.Domain
 {
     public class RoomRoomFeatures
     {

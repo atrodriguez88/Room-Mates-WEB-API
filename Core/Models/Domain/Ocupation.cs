@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace RoomM.API.Core.Models
+namespace RoomM.API.Core.Models.Domain
 {
     [Table("Ocupations")]
     public class Ocupation

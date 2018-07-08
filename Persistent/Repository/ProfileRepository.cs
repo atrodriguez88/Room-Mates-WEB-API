@@ -2,13 +2,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using RoomM.API.Core;
 using RoomM.API.Core.Models;
 using RoomM.API.Core.Models.Domain;
-using RoomM.API.Core.Models.Helper;
+using RoomM.API.Core.QueryString;
+using RoomM.API.Core.Repository;
 using RoomM.API.Persistent.Entity;
 
-namespace RoomM.API.Persistent
+namespace RoomM.API.Persistent.Repository
 {
     public class ProfileRepository : Repository<Profile>, IProfileRepository
     {
@@ -28,6 +28,9 @@ namespace RoomM.API.Persistent
             var query = context.Profiles.Include(p => p.Ocupation)
                                         .Where(p => p.Deleted == false);
 
+            /*
+             All the filter Here    
+            */
             if (filter.Age.HasValue)
             {
                 query = query.Where(p => p.Age == filter.Age);
@@ -44,9 +47,6 @@ namespace RoomM.API.Persistent
             {
                 query = query.Where(p => p.Address == filter.Address);
             }
-            /*
-             All the filter Here    
-             */
 
             return await query.ToListAsync();
         }

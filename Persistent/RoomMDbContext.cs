@@ -1,9 +1,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using RoomM.API.Core.Models;
 using RoomM.API.Core.Models.Auth;
 using RoomM.API.Core.Models.Domain;
-using System.Linq;
 
 namespace RoomM.API.Persistent
 {

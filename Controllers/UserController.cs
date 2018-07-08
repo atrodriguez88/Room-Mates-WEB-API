@@ -1,11 +1,10 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RoomM.API.Controllers.Resources;
 using RoomM.API.Core;
-using RoomM.API.Core.Models;
+using RoomM.API.Core.Models.Auth;
 
 namespace RoomM.API.Controllers
 {

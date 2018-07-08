@@ -2,13 +2,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using RoomM.API.Core;
 using RoomM.API.Core.Models;
 using RoomM.API.Core.Models.Domain;
-using RoomM.API.Core.Models.Helper;
+using RoomM.API.Core.QueryString;
+using RoomM.API.Core.Repository;
 using RoomM.API.Persistent.Entity;
 
-namespace RoomM.API.Persistent
+namespace RoomM.API.Persistent.Repository
 {
     public class RoomRepository : Repository<Room>, IRoomRepository
     {
@@ -45,16 +45,18 @@ namespace RoomM.API.Persistent
                                             .ThenInclude(rrf => rrf.RoomFeatures)
                                         .Where(x => x.Deleted == false);
 
+            /*Filters Here*/
+
             // This filter return a bool is for that I do the else sentence
             if (filterRoom.IsFurnished.HasValue && filterRoom.IsFurnished == 1)
             {
-                query = query.Where(r => r.IsFurnished == true);
+                query = query.Where(r => r.IsFurnished);
             }
             if (filterRoom.IsFurnished.HasValue && filterRoom.IsFurnished == 0)
             {
                 query = query.Where(r => r.IsFurnished == false);
             }
-            /*Filters Here*/
+            
 
 
             return await query.ToListAsync();

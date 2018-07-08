@@ -1,9 +1,10 @@
 using System.Linq;
-using AutoMapper;
 using RoomM.API.Controllers.Resources;
 using RoomM.API.Core.Models;
+using RoomM.API.Core.Models.Auth;
 using RoomM.API.Core.Models.Domain;
-using RoomM.API.Core.Models.Helper;
+using RoomM.API.Core.QueryString;
+using Profile = RoomM.API.Core.Models.Domain.Profile;
 
 namespace RoomM.API.Mapping
 {
@@ -20,17 +21,17 @@ namespace RoomM.API.Mapping
             CreateMap<Ocupation, KeyValuePairResource>();
             CreateMap<PropertyFeatures, KeyValuePairResource>();
             CreateMap<PropertyRules, KeyValuePairResource>();
-            CreateMap<Core.Models.Profile, ProfileResource>();
+            CreateMap<Profile, ProfileResource>();
             // (GET)
             CreateMap<Room, RoomResource>()
-            .ForMember(rr => rr.Rules, opt => opt.MapFrom(r => r.Rules.Select(RPR => new KeyValuePairResource { Id = RPR.PropertyRules.Id, Name = RPR.PropertyRules.Name })))
-            .ForMember(rr => rr.PropertyFeatures, opt => opt.MapFrom(r => r.PropertyFeatures.Select(RPR => new KeyValuePairResource { Id = RPR.PropertyFeatures.Id, Name = RPR.PropertyFeatures.Name })))
-            .ForMember(rr => rr.RoomFeatures, opt => opt.MapFrom(r => r.RoomFeatures.Select(RPR => new KeyValuePairResource { Id = RPR.RoomFeatures.Id, Name = RPR.RoomFeatures.Name })));
+            .ForMember(rr => rr.Rules, opt => opt.MapFrom(r => r.Rules.Select(rpr => new KeyValuePairResource { Id = rpr.PropertyRules.Id, Name = rpr.PropertyRules.Name })))
+            .ForMember(rr => rr.PropertyFeatures, opt => opt.MapFrom(r => r.PropertyFeatures.Select(rpr => new KeyValuePairResource { Id = rpr.PropertyFeatures.Id, Name = rpr.PropertyFeatures.Name })))
+            .ForMember(rr => rr.RoomFeatures, opt => opt.MapFrom(r => r.RoomFeatures.Select(rpr => new KeyValuePairResource { Id = rpr.RoomFeatures.Id, Name = rpr.RoomFeatures.Name })));
             // (POST, PUT)
             CreateMap<Room, SaveRoomResource>()
-            .ForMember(rr => rr.Rules, opt => opt.MapFrom(r => r.Rules.Select(RPR => RPR.PropertyRulesId)))
-            .ForMember(rr => rr.PropertyFeatures, opt => opt.MapFrom(r => r.PropertyFeatures.Select(RPR => RPR.PropertyFeaturesId)))
-            .ForMember(rr => rr.RoomFeatures, opt => opt.MapFrom(r => r.RoomFeatures.Select(RPR => RPR.RoomFeaturesId)));
+            .ForMember(rr => rr.Rules, opt => opt.MapFrom(r => r.Rules.Select(rpr => rpr.PropertyRulesId)))
+            .ForMember(rr => rr.PropertyFeatures, opt => opt.MapFrom(r => r.PropertyFeatures.Select(rpr => rpr.PropertyFeaturesId)))
+            .ForMember(rr => rr.RoomFeatures, opt => opt.MapFrom(r => r.RoomFeatures.Select(rpr => rpr.RoomFeaturesId)));
 
 
             //API to Domain (POST, PUT)
@@ -50,7 +51,7 @@ namespace RoomM.API.Mapping
             .ForMember(p => p.Id, opt => opt.Ignore());
             CreateMap<KeyValuePairResource, PropertyRules>()
             .ForMember(p => p.Id, opt => opt.Ignore());
-            CreateMap<SaveProfileResource, Core.Models.Profile>()
+            CreateMap<SaveProfileResource, Profile>()
             .ForMember(p => p.Id, opt => opt.Ignore());
             // .ForMember(p => p.Ocupation, opt => opt.MapFrom(spr => new Ocupation{Id = spr.OcupationId}));
             CreateMap<SaveRoomResource, Room>()
@@ -65,12 +66,12 @@ namespace RoomM.API.Mapping
             .AfterMap((rr, r) =>
             {
                 // Remove unselected Rules
-                var removedRules = r.Rules.Where(RPR => !rr.Rules.Contains(RPR.PropertyRulesId)).ToList();
+                var removedRules = r.Rules.Where(rpr => !rr.Rules.Contains(rpr.PropertyRulesId)).ToList();
                 foreach (var remR in removedRules)
                     r.Rules.Remove(remR);
 
                 // Add new Rules
-                var addedRules = rr.Rules.Where(id => !r.Rules.Any(RPR => RPR.PropertyRulesId == id))
+                var addedRules = rr.Rules.Where(id => r.Rules.All(rpr => rpr.PropertyRulesId != id))
                     .Select(id => new RoomsPropertyRules { PropertyRulesId = id }).ToList();
                 foreach (var ar in addedRules)
                     r.Rules.Add(ar);
@@ -79,29 +80,29 @@ namespace RoomM.API.Mapping
             .AfterMap((rr, r) =>
             {
                 // Remove unselected PropertyFeatures
-                var removedPropFeature = r.PropertyFeatures.Where(RPR => !rr.PropertyFeatures.Contains(RPR.PropertyFeaturesId)).ToList();
+                var removedPropFeature = r.PropertyFeatures.Where(rpr => !rr.PropertyFeatures.Contains(rpr.PropertyFeaturesId)).ToList();
                 foreach (var remR in removedPropFeature)
                     r.PropertyFeatures.Remove(remR);
 
                 // Add new PropertyFeatures
-                var addedPropRules = rr.PropertyFeatures.Where(id => !r.PropertyFeatures.Any(RPR => RPR.PropertyFeaturesId == id))
+                var addedPropRules = rr.PropertyFeatures.Where(id => r.PropertyFeatures.All(rpr => rpr.PropertyFeaturesId != id))
                     .Select(id => new RoomsPropertyFeatures { PropertyFeaturesId = id }).ToList();
-                foreach (var aPF in addedPropRules)
-                    r.PropertyFeatures.Add(aPF);
+                foreach (var aPf in addedPropRules)
+                    r.PropertyFeatures.Add(aPf);
             })
             .ForMember(r => r.RoomFeatures, opt => opt.Ignore())
             .AfterMap((rr, r) =>
             {
                 // Remove unselected RoomFeatures
-                var removedRoomFeature = r.RoomFeatures.Where(RPR => !rr.RoomFeatures.Contains(RPR.RoomFeaturesId)).ToList();
+                var removedRoomFeature = r.RoomFeatures.Where(rpr => !rr.RoomFeatures.Contains(rpr.RoomFeaturesId)).ToList();
                 foreach (var remR in removedRoomFeature)
                     r.RoomFeatures.Remove(remR);
 
                 // Add new RoomFeatures
-                var addedRoomFeature = rr.RoomFeatures.Where(id => !r.RoomFeatures.Any(RPR => RPR.RoomFeaturesId == id))
+                var addedRoomFeature = rr.RoomFeatures.Where(id => r.RoomFeatures.All(rpr => rpr.RoomFeaturesId != id))
                     .Select(id => new RoomRoomFeatures { RoomFeaturesId = id }).ToList();
-                foreach (var aRF in addedRoomFeature)
-                    r.RoomFeatures.Add(aRF);
+                foreach (var aRf in addedRoomFeature)
+                    r.RoomFeatures.Add(aRf);
             });
 
         }

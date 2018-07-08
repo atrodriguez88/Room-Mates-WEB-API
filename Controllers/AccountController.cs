@@ -3,7 +3,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using RoomM.API.Controllers.Resources;
 using RoomM.API.Core;
-using RoomM.API.Core.Models;
+using RoomM.API.Core.Models.Auth;
 
 namespace RoomM.API.Controllers
 {
@@ -26,8 +26,8 @@ namespace RoomM.API.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = userInfo.Email, Email = userInfo.Email, FirstName = userInfo.FirstName };
-                var UserExist = await repository.UserExist(userInfo.Email);
-                if (UserExist)
+                var userExist = await repository.UserExist(userInfo.Email);
+                if (userExist)
                 {
                    return BadRequest("This user alraedy exist");
                 }
@@ -54,8 +54,8 @@ namespace RoomM.API.Controllers
         {
             if (ModelState.IsValid)
             {
-                var UserExist = await repository.UserExist(userInfo.Email);
-                if (UserExist)
+                var userExist = await repository.UserExist(userInfo.Email);
+                if (userExist)
                 {
                     BadRequest("This user alraedy exist");
                 }

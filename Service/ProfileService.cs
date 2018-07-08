@@ -1,12 +1,11 @@
-﻿using RoomM.API.Core;
-using RoomM.API.Core.Log;
+﻿using RoomM.API.Core.Log;
 using RoomM.API.Core.Models;
 using RoomM.API.Core.Models.Domain;
-using RoomM.API.Core.Models.Helper;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using RoomM.API.Core.QueryString;
+using RoomM.API.Core.Repository;
 
 namespace RoomM.API.Service
 {

@@ -4,13 +4,12 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using RoomM.API.Core;
-using RoomM.API.Core.Models;
+using RoomM.API.Core.Models.Auth;
 
-namespace RoomM.API.Persistent
+namespace RoomM.API.Persistent.Repository
 {
     public class AuthRepository : IAuthRepository
     {        

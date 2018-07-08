@@ -1,9 +1,7 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using RoomM.API.Core.Entity;
-using RoomM.API.Core.Models;
+using RoomM.API.Core.Models.Domain;
 
-namespace RoomM.API.Core
+namespace RoomM.API.Core.Repository
 {
     public interface IPropertyType : IRepository<PropertyType>
     {         

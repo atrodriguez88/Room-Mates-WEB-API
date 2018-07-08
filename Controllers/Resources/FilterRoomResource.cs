@@ -21,5 +21,8 @@ namespace RoomM.API.Controllers.Resources
         public string Smoking { get; set; }
         public string Pet { get; set; }             // Dog(s) ok, Cat(s) ok, Caged Pet(s) ok,
         public string Cleanliness { get; set; }
+
+        public string SortBy { get; set; }
+        public bool IsSortAsc { get; set; }
     }
 }

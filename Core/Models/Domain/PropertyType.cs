@@ -1,8 +1,8 @@
+using System.ComponentModel.DataAnnotations.Schema;
 using Common.CustomFilters;
 using RoomM.API.Core.Models.Helper;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace RoomM.API.Core.Models
+namespace RoomM.API.Core.Models.Domain
 {
     [Table("PropertyTypes")]
     public class PropertyType : AuditEntity, ISoftDeleted

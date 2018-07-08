@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace RoomM.API.Core.Models.Helper
+﻿namespace RoomM.API.Core.QueryString
 {
     public class FilterRoom
     {
+        //        Filtering
         public string Address { get; set; }
         public int? PropertyId { get; set; }
         public int? NumberBedrooms { get; set; }
@@ -21,5 +17,9 @@ namespace RoomM.API.Core.Models.Helper
         public string Smoking { get; set; }
         public string Pet { get; set; }             // Dog(s) ok, Cat(s) ok, Caged Pet(s) ok,
         public string Cleanliness { get; set; }
+
+        //        Sorting
+        public string SortBy { get; set; }
+        public bool IsSortAsc { get; set; }
     }
 }

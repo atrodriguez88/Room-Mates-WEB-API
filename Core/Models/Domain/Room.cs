@@ -1,12 +1,11 @@
-using Common.CustomFilters;
-using RoomM.API.Core.Models.Domain;
-using RoomM.API.Core.Models.Helper;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+using Common.CustomFilters;
+using RoomM.API.Core.Models.Helper;
 
-namespace RoomM.API.Core.Models
+namespace RoomM.API.Core.Models.Domain
 {
     public class Room : AuditEntity, ISoftDeleted
     {

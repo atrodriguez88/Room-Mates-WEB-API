@@ -7,6 +7,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RoomM.API.Common.Helpers;
 using RoomM.API.Controllers.Resources;
 using RoomM.API.Core;
 using RoomM.API.Core.Models.Domain;
@@ -51,7 +52,7 @@ namespace RoomM.API.Controllers
                 if (file.Length > MAX_BYTES) return BadRequest("Max file size exceeded");
                 if (ACCEPTED_FILE_TYPE.Any( a => a == Path.GetExtension(file.FileName).ToLower())) return BadRequest("Invalid file type");
 
-                var photo = await CreateDirectAndCopyImage(file);
+                var photo = await PhotoHelp.CreateDirectAndCopyImage(file, host);
                 await roomService.AddPhoto(roomId.Value, photo);
                 await uow.CompleteAsync();
 
@@ -66,7 +67,7 @@ namespace RoomM.API.Controllers
                 {
                     return NotFound();
                 }
-                var photo = await CreateDirectAndCopyImage(file);
+                var photo = await PhotoHelp.CreateDirectAndCopyImage(file, host);
                 await profileService.AddPhoto(profileId.Value, photo);
                 await uow.CompleteAsync();
 
@@ -78,36 +79,6 @@ namespace RoomM.API.Controllers
                 return NotFound();
             }          
             
-        }
-        /// <summary>
-        /// Procesando la imagen para directorio determinado
-        /// </summary>
-        /// <param name="file"></param>
-        /// <returns></returns>
-        public async Task<Photo> CreateDirectAndCopyImage(IFormFile file)
-        {
-            string uploadPath = Path.Combine(host.ContentRootPath, "UpLoad");   // C:\Users\ariel\source\repos\RoomM.App\RoomM.API\
-            if (!Directory.Exists(uploadPath))
-            {
-                Directory.CreateDirectory(uploadPath);
-            }
-
-            var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-            string filePath = Path.Combine(uploadPath, fileName);
-
-            using (var stream = new FileStream(filePath, FileMode.Create))
-            {
-                await file.CopyToAsync(stream);
-            }
-
-            /*
-             * Create thumbnail image
-             * A thumbnail image is a small version of an image.
-             * You can create a thumbnail image by calling the GetThumbnailImage method of an Image object.
-             * https://stackoverflow.com/questions/2808887/create-thumbnail-image
-             */
-            var photo = new Photo { FileName = fileName };
-            return photo;
         }
     }
 }

@@ -50,7 +50,7 @@ namespace RoomM.API.Core.Models
 
         public bool Deleted { get; set; }
 
-        // public Photo Photos { get; set; }
+        public ICollection<Photo> Photos { get; set; }
 
         public int ProfileId { get; set; }
         public Profile Profile { get; set; }
@@ -60,6 +60,7 @@ namespace RoomM.API.Core.Models
             Rules = new Collection<RoomsPropertyRules>();
             PropertyFeatures = new Collection<RoomsPropertyFeatures>();
             RoomFeatures = new Collection<RoomRoomFeatures>();
+            Photos = new Collection<Photo>();
         }
 
     }

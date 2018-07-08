@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using RoomM.API.Core;
 using RoomM.API.Core.Models;
+using RoomM.API.Core.Models.Domain;
 using RoomM.API.Core.Models.Helper;
 using RoomM.API.Persistent.Entity;
 
@@ -57,6 +58,12 @@ namespace RoomM.API.Persistent
 
 
             return await query.ToListAsync();
+        }
+
+        public async Task AddPhoto(int id, Photo photo)
+        {
+            var room = await context.Rooms.SingleOrDefaultAsync(x => x.Id == id);
+            room.Photos.Add(photo);
         }
     }
 }

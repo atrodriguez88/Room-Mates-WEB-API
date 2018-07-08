@@ -1,6 +1,7 @@
 ﻿using RoomM.API.Core;
 using RoomM.API.Core.Log;
 using RoomM.API.Core.Models;
+using RoomM.API.Core.Models.Domain;
 using RoomM.API.Core.Models.Helper;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,7 @@ namespace RoomM.API.Service
 
         Task AddProfileAsync(Profile profile);
         void Remove(Profile profile);
+        Task AddPhoto(int value, Photo photo);
     }
 
     public class ProfileService : IProfileService
@@ -91,6 +93,20 @@ namespace RoomM.API.Service
             {
                 logger.LogError(e.Message);
             }
+        }
+
+        public async Task AddPhoto(int id, Photo photo)
+        {
+            
+            try
+            {
+                await repository.AddPhoto(id, photo);
+            }
+            catch (Exception e)
+            {
+                logger.LogError(e.Message);
+            }
+
         }
     }
 }

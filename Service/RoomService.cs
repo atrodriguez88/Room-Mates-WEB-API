@@ -2,6 +2,7 @@
 using RoomM.API.Core;
 using RoomM.API.Core.Log;
 using RoomM.API.Core.Models;
+using RoomM.API.Core.Models.Domain;
 using RoomM.API.Core.Models.Helper;
 using RoomM.API.Persistent;
 using System;
@@ -18,6 +19,7 @@ namespace RoomM.API.Service
         Task AddRoomAsync(Room room);
         void Remove(Room room);
         IEnumerable<Room> GetRoomsByUserId(int userId);
+        Task AddPhoto(int id, Photo photo);
     }
     public class RoomService : IRoomService
     {
@@ -90,6 +92,18 @@ namespace RoomM.API.Service
             try
             {
                 repository.Delete(room);
+            }
+            catch (Exception e)
+            {
+                logger.LogError(e.Message);
+            }
+        }
+
+        public async Task AddPhoto(int id, Photo photo)
+        {
+            try
+            {
+                await repository.AddPhoto(id, photo);
             }
             catch (Exception e)
             {

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using RoomM.API.Core.Entity;
 using RoomM.API.Core.Models;
+using RoomM.API.Core.Models.Domain;
 using RoomM.API.Core.Models.Helper;
 
 namespace RoomM.API.Core
@@ -10,5 +11,6 @@ namespace RoomM.API.Core
     {
         Task<Room> GetRoom(int id);
         Task<IEnumerable<Room>> GetRooms(FilterRoom filterRoom);
+        Task AddPhoto(int id, Photo photo);
     }
 }

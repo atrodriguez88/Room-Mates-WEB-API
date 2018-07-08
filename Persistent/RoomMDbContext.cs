@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using RoomM.API.Core.Models;
 using RoomM.API.Core.Models.Auth;
+using RoomM.API.Core.Models.Domain;
 using System.Linq;
 
 namespace RoomM.API.Persistent
@@ -19,6 +20,8 @@ namespace RoomM.API.Persistent
         public DbSet<PropertyFeatures> PropertyFeatures { get; set; }
         public DbSet<RoomFeatures> RoomFeatures { get; set; }
         public DbSet<Ocupation> Ocupations { get; set; }
+        public DbSet<Photo> Photos { get; set; }
+
         public RoomMDbContext(DbContextOptions<RoomMDbContext> options)
             : base(options)
         {

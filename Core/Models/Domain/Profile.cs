@@ -1,4 +1,5 @@
 using Common.CustomFilters;
+using RoomM.API.Core.Models.Domain;
 using RoomM.API.Core.Models.Helper;
 using System;
 using System.Collections;
@@ -29,11 +30,12 @@ namespace RoomM.API.Core.Models
 
         public bool Deleted { get; set; }
 
-        // public Photo Photos { get; set; }
+        public ICollection<Photo> Photos { get; set; }
 
         public Profile()
         {
             Rooms = new Collection<Room>();
+            Photos = new Collection<Photo>();
         }
     }
 }

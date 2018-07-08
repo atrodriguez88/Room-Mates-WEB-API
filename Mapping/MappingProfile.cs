@@ -12,6 +12,7 @@ namespace RoomM.API.Mapping
         public MappingProfile()
         {
             // Domain to API (GET)
+            CreateMap<Photo, PhotoResource>();
             CreateMap<Preferences, PreferencesResource>();
             CreateMap<ApplicationUser, ApplicationUserResource>();
             CreateMap<PropertyType, KeyValuePairResource>();

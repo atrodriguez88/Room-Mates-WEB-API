@@ -203,6 +203,29 @@ namespace RoomM.API.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("RoomM.API.Core.Models.Domain.Photo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.Property<int?>("ProfileId");
+
+                    b.Property<int?>("RoomId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProfileId");
+
+                    b.HasIndex("RoomId");
+
+                    b.ToTable("Photos");
+                });
+
             modelBuilder.Entity("RoomM.API.Core.Models.Domain.Preferences", b =>
                 {
                     b.Property<int>("Id")
@@ -583,6 +606,17 @@ namespace RoomM.API.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("RoomM.API.Core.Models.Domain.Photo", b =>
+                {
+                    b.HasOne("RoomM.API.Core.Models.Profile")
+                        .WithMany("Photos")
+                        .HasForeignKey("ProfileId");
+
+                    b.HasOne("RoomM.API.Core.Models.Room")
+                        .WithMany("Photos")
+                        .HasForeignKey("RoomId");
                 });
 
             modelBuilder.Entity("RoomM.API.Core.Models.Domain.Preferences", b =>

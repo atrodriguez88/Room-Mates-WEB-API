@@ -24,6 +24,8 @@ namespace RoomM.API.Controllers
         private readonly IProfileService profileService;
         private readonly IUnitOfWork uow;
         private readonly IMapper mapper;
+        private readonly int MAX_BYTES = 5 * 1024 * 1024;
+        private readonly string[] ACCEPTED_FILE_TYPE = new[] { ".jpg", ".jpge", ".png"};
 
         public PhotoController(IHostingEnvironment host, IRoomService roomService, IProfileService profileService, IUnitOfWork uow, IMapper mapper)
         {
@@ -42,14 +44,13 @@ namespace RoomM.API.Controllers
             {
                 // Code upload photo room
                 var room = await roomService.GetRoom(roomId.Value);
-                if (room == null)
-                {
-                    return NotFound();
-                }
-                if (file == null)
-                {
-                    BadRequest("Null File");
-                }
+
+                if (room == null) return NotFound();
+                if (file == null) return BadRequest("Null File");
+                if (file.Length == 0) return BadRequest("Empty File");
+                if (file.Length > MAX_BYTES) return BadRequest("Max file size exceeded");
+                if (ACCEPTED_FILE_TYPE.Any( a => a == Path.GetExtension(file.FileName).ToLower())) return BadRequest("Invalid file type");
+
                 var photo = await CreateDirectAndCopyImage(file);
                 await roomService.AddPhoto(roomId.Value, photo);
                 await uow.CompleteAsync();

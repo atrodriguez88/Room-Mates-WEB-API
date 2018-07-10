@@ -13,7 +13,7 @@ namespace RoomM.API.Service
     {
         Task<Profile> GetProfile(int id);
         IEnumerable<Profile> GetProfileByUserId(int userId);
-        Task<IEnumerable<Profile>> GetProfiles(FilterProfile filter);
+        Task<IEnumerable<Profile>> GetProfiles(ProfileQuery filter);
 
         Task AddProfileAsync(Profile profile);
         void Remove(Profile profile);
@@ -69,7 +69,7 @@ namespace RoomM.API.Service
             }
         }
 
-        public async Task<IEnumerable<Profile>> GetProfiles(FilterProfile filter)
+        public async Task<IEnumerable<Profile>> GetProfiles(ProfileQuery filter)
         {
             try
             {

@@ -10,7 +10,7 @@ namespace RoomM.API.Core.Repository
     public interface IRoomRepository : IRepository<Room>
     {
         Task<Room> GetRoom(int id);
-        Task<IEnumerable<Room>> GetRooms(FilterRoom filterRoom);
+        Task<IEnumerable<Room>> GetRooms(RoomQuery queryObj);
         Task AddPhoto(int id, Photo photo);
     }
 }

@@ -69,9 +69,9 @@ namespace RoomM.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetProfiles(FilterProfileResource filterResource)
+        public async Task<IActionResult> GetProfiles(ProfileQueryResource queryResource)
         {
-            var filter = Mapper.Map<FilterProfileResource, FilterProfile>(filterResource);
+            var filter = Mapper.Map<ProfileQueryResource, ProfileQuery>(queryResource);
             var users = await service.GetProfiles(filter);
             if (users == null)
             {

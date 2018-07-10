@@ -11,7 +11,7 @@ namespace RoomM.API.Service
 {
     public interface IRoomService
     {
-        Task<IEnumerable<Room>> GetRooms(FilterRoom filterRoom);
+        Task<IEnumerable<Room>> GetRooms(RoomQuery roomQuery);
         Task<Room> GetRoom(int id);
         Task AddRoomAsync(Room room);
         void Remove(Room room);
@@ -56,11 +56,11 @@ namespace RoomM.API.Service
             }
         }
 
-        public async Task<IEnumerable<Room>> GetRooms(FilterRoom filterRoom)
+        public async Task<IEnumerable<Room>> GetRooms(RoomQuery roomQuery)
         {
             try
             {
-                return await repository.GetRooms(filterRoom);
+                return await repository.GetRooms(roomQuery);
             }
             catch (Exception e)
             {

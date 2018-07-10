@@ -10,7 +10,7 @@ namespace RoomM.API.Core.Repository
     public interface IProfileRepository : IRepository<Profile>
     {
         Task<Profile> GetProfile(int id);
-        Task<IEnumerable<Profile>> GetProfiles(FilterProfile filter);
+        Task<IEnumerable<Profile>> GetProfiles(ProfileQuery queryObj);
         Task AddPhoto(int id, Photo photo);
     }
 }

@@ -28,9 +28,9 @@ namespace RoomM.API.Controllers
             this.mapper = mapper;
         }
         [HttpGet]
-        public async Task<IActionResult> GetRooms(FilterRoomResource filterRoomResource)
+        public async Task<IActionResult> GetRooms(RoomQueryResource roomQueryResource)
         {
-            var filter = Mapper.Map<FilterRoomResource, FilterRoom>(filterRoomResource);
+            var filter = Mapper.Map<RoomQueryResource, RoomQuery>(roomQueryResource);
             var rooms = await service.GetRooms(filter);
 
             if (rooms == null)

@@ -35,8 +35,8 @@ namespace RoomM.API.Mapping
 
 
             //API to Domain (POST, PUT)
-            CreateMap<FilterProfileResource, FilterProfile>();
-            CreateMap<FilterRoomResource, FilterRoom>();
+            CreateMap<ProfileQueryResource, ProfileQuery>();
+            CreateMap<RoomQueryResource, RoomQuery>();
             CreateMap<SaveApplicationUserResource, ApplicationUser>();
             CreateMap<ApplicationUserResource, ApplicationUser>();
             CreateMap<PreferencesResource, Preferences>()

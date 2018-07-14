@@ -2,7 +2,7 @@
 
 namespace RoomM.API.Core.QueryString
 {
-    public class RoomQuery : IQuerySort
+    public class RoomQuery : IQuerySort, IQueryPage
     {
         //        Filtering
         public string Address { get; set; }
@@ -26,5 +26,9 @@ namespace RoomM.API.Core.QueryString
 
         public string SortBy { get; set; }
         public bool IsSortAsc { get; set; }
+
+        // Pagining
+        public int Page { get; set; }
+        public byte PageSize { get; set; }
     }
 }

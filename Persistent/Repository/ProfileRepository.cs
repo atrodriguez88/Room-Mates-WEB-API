@@ -36,6 +36,11 @@ namespace RoomM.API.Persistent.Repository
                 Filter
             */
 
+            query = query.ApplyFiltering(queryObj);
+
+            /*
+             * Forma Ampliada de Sorting
+             * 
             if (queryObj.Age.HasValue)
                 query = query.Where(p => p.Age == queryObj.Age);
             if (queryObj.Gender != null)
@@ -44,6 +49,7 @@ namespace RoomM.API.Persistent.Repository
                 query = query.Where(p => p.OcupationId == queryObj.Ocupation);
             if (queryObj.Address != null)
                 query = query.Where(p => p.Address == queryObj.Address);
+            */
 
             /*
                 Sorting
@@ -72,16 +78,25 @@ namespace RoomM.API.Persistent.Repository
                     : query.OrderByDescending(p => p.Ocupation);
             if (queryObj.SortBy == "address")
                 query = queryObj.IsSortAsc ? query.OrderBy(p => p.Address) : query.OrderByDescending(p => p.Address);
-
             */
 
+
             /*
-               Sorting
+               Paginig
            */
 
             query = query.ApplyPaging(queryObj);
 
-            var test = query.ToListAsync();
+
+            /*
+             * Forma Ampliada de Sorting
+             * 
+             if (queryObj.Page <= 0)
+                 queryObj.Page = 1;
+             if (queryObj.PageSize <= 0)
+                 queryObj.PageSize = 10;
+             query = query.Skip((queryObj.Page - 1) * queryObj.PageSize).Take(queryObj.PageSize);
+             */
 
             return await query.ToListAsync();
         }

@@ -50,8 +50,11 @@ namespace RoomM.API.Persistent.Repository
 
             /*Filters Here*/
 
+            query = query.ApplyFiltering(queryObj);
+
             // This filter return a bool is for that I do the else sentence
-            if (queryObj.IsFurnished.HasValue && queryObj.IsFurnished == 1)
+            /*
+             if (queryObj.IsFurnished.HasValue && queryObj.IsFurnished == 1)
                 query = query.Where(r => r.IsFurnished);
             if (queryObj.IsFurnished.HasValue && queryObj.IsFurnished == 0)
                 query = query.Where(r => r.IsFurnished == false);
@@ -60,6 +63,7 @@ namespace RoomM.API.Persistent.Repository
                 query = query.Where(r => r.Pet == queryObj.Pet);
 
             //  ...
+            */
 
             /* 
                Sorting 
@@ -83,8 +87,24 @@ namespace RoomM.API.Persistent.Repository
 
             if (queryObj.SortBy.ToLower() == "pet")
                 query = queryObj.IsSortAsc ? query.OrderBy(r => r.Pet) : query.OrderByDescending(r => r.Pet);
-
              */
+
+
+            /*
+                Pagining 
+            */
+
+            query = query.ApplyPaging(queryObj);
+
+            /*            
+            * Forma Ampliada de Paging
+            *
+            if (queryObj.Page <= 0)
+               queryObj.Page = 1;
+            if (queryObj.PageSize <= 0)
+               queryObj.PageSize = 10;
+            query = query.Skip((queryObj.Page - 1) * queryObj.PageSize).Take(queryObj.PageSize);
+            */
 
 
             return await query.ToListAsync();

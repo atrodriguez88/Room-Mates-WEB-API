@@ -75,6 +75,14 @@ namespace RoomM.API.Persistent.Repository
 
             */
 
+            /*
+               Sorting
+           */
+
+            query = query.ApplyPaging(queryObj);
+
+            var test = query.ToListAsync();
+
             return await query.ToListAsync();
         }
 

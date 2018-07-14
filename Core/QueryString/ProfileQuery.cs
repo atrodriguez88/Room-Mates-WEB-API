@@ -2,7 +2,7 @@
 
 namespace RoomM.API.Core.QueryString
 {
-    public class ProfileQuery : IQueryObj
+    public class ProfileQuery : IQuerySort, IQueryPage
     {
         //        Filtering
         public int? Age { get; set; }
@@ -12,9 +12,14 @@ namespace RoomM.API.Core.QueryString
 
         //        Sorting
 
-        /*  Create to IQueryObj for clean arquitecture */
+        /*  Create to IQuerySort for clean arquitecture */
 
         public string SortBy { get; set; }
         public bool IsSortAsc { get; set; }
+
+        //        Pagination
+
+        public int Page { get; set; }
+        public byte PageSize { get; set; }
     }
 }

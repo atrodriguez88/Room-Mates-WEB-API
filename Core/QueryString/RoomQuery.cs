@@ -2,7 +2,7 @@
 
 namespace RoomM.API.Core.QueryString
 {
-    public class RoomQuery : IQueryObj
+    public class RoomQuery : IQuerySort
     {
         //        Filtering
         public string Address { get; set; }
@@ -22,7 +22,7 @@ namespace RoomM.API.Core.QueryString
 
         //        Sorting
 
-        /*  Create to IQueryObj for clean arquitecture */
+        /*  Create to IQuerySort for clean arquitecture */
 
         public string SortBy { get; set; }
         public bool IsSortAsc { get; set; }

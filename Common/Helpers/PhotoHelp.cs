@@ -2,9 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using RoomM.API.Core.Models.Domain;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace RoomM.API.Common.Helpers

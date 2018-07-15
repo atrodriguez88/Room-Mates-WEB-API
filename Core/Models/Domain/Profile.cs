@@ -30,11 +30,15 @@ namespace RoomM.API.Core.Models.Domain
         public bool Deleted { get; set; }
 
         public ICollection<Photo> Photos { get; set; }
+        public ICollection<Message> MessagesSender { get; set; }
+        public ICollection<Message> MessagesRecived { get; set; }
 
         public Profile()
         {
             Rooms = new Collection<Room>();
             Photos = new Collection<Photo>();
+            MessagesSender = new Collection<Message>();
+            MessagesRecived = new Collection<Message>();
         }
     }
 }

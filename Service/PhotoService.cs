@@ -14,28 +14,18 @@ namespace RoomM.API.Service
     public class PhotoService : IPhotoService
     {
         private readonly ILoggerManager logger;
+        private readonly IPhotoStorage photoStorage;
 
-        public PhotoService(ILoggerManager logger)
+        public PhotoService(ILoggerManager logger, IPhotoStorage photoStorage)
         {
             this.logger = logger;
+            this.photoStorage = photoStorage;
         }
         public Photo UploadPhoto(IFormFile file, IHostingEnvironment host)
         {
             try
             {
-                string uploadPath = Path.Combine(host.ContentRootPath, "UpLoad");   // C:\Users\ariel\source\repos\RoomM.App\RoomM.API\
-                if (!Directory.Exists(uploadPath))
-                {
-                    Directory.CreateDirectory(uploadPath);
-                }
-
-                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-                string filePath = Path.Combine(uploadPath, fileName);
-
-                using (var stream = new FileStream(filePath, FileMode.Create))
-                {
-                    file.CopyToAsync(stream);
-                }
+                var fileName = photoStorage.StorePhoto(file, host);
 
                 /*
                  * Create thumbnail image

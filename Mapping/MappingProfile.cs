@@ -13,6 +13,7 @@ namespace RoomM.API.Mapping
         public MappingProfile()
         {
             // Domain to API (GET)
+            CreateMap<Message, MessageResource>();
             CreateMap<Photo, PhotoResource>();
             CreateMap<Preferences, PreferencesResource>();
             CreateMap<ApplicationUser, ApplicationUserResource>();
@@ -35,6 +36,8 @@ namespace RoomM.API.Mapping
 
 
             //API to Domain (POST, PUT)
+            CreateMap<MessageResource, Message>()
+                .ForMember(m => m.Id, opt => opt.Ignore());
             CreateMap<ProfileQueryResource, ProfileQuery>();
             CreateMap<RoomQueryResource, RoomQuery>();
             CreateMap<SaveApplicationUserResource, ApplicationUser>();

@@ -46,8 +46,8 @@ namespace RoomM.API.Service
         {
             try
             {
-                var test =  await repository.GetProfile(id);
-                return test;
+                var profile =  await repository.GetProfile(id);
+                return profile;
             }
             catch (Exception e)
             {

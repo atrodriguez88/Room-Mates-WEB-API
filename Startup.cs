@@ -36,6 +36,9 @@ namespace RoomM.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IMessageRepository, MessageRepository>();
+            services.AddScoped<IMessageService, MessageService>();
+
             services.AddTransient<IPhotoStorage, FileSystemPhotoStore>();
             services.AddTransient<IPhotoService, PhotoService>();
 

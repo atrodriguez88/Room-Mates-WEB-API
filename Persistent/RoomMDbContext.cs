@@ -45,8 +45,11 @@ namespace RoomM.API.Persistent
             modelBuilder.Entity<RoomRoomFeatures>()
                 .HasKey(rf => new {rf.RoomId, rf.RoomFeaturesId});
 
-//            modelBuilder.Entity<Message>()
-//                .HasKey(m => new {m.SenderMessId, m.RecivedMessId});
+
+            //PROFILE-1-----------M--MESSAGE--M-----------1--PROFILE
+
+            //            modelBuilder.Entity<Message>()
+            //                .HasKey(m => new {m.SenderMessId, m.RecivedMessId});
             modelBuilder.Entity<Message>()
                 .HasOne(m => m.SenderMess)
                 .WithMany(p => p.MessagesSender)

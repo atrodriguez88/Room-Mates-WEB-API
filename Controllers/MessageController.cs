@@ -39,7 +39,7 @@ namespace RoomM.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetMessagesForUser()
+        public async Task<IActionResult> GetMessagesForUser(MessageQueryResource queryObj)
         {
             return Ok();
         }

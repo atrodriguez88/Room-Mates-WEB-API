@@ -38,6 +38,7 @@ namespace RoomM.API.Mapping
             //API to Domain (POST, PUT)
             CreateMap<MessageResource, Message>()
                 .ForMember(m => m.Id, opt => opt.Ignore());
+            CreateMap<MessageQueryResource, MessageQuery>();
             CreateMap<ProfileQueryResource, ProfileQuery>();
             CreateMap<RoomQueryResource, RoomQuery>();
             CreateMap<SaveApplicationUserResource, ApplicationUser>();

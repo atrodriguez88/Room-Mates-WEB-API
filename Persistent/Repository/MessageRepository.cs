@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Extensions.Internal;
 using RoomM.API.Common.Constants;
 using RoomM.API.Core.Models.Domain;
 using RoomM.API.Core.QueryString;
@@ -34,11 +32,11 @@ namespace RoomM.API.Persistent.Repository
 
             switch (queryObj.MessageSatus)
             {
-                case MessageStatus.Inbox:
+                case MessageState.Inbox:
                     query = query.Where(m => m.RecivedMessId == queryObj.UserId);
                     break;
 
-                case MessageStatus.Outbox:
+                case MessageState.Outbox:
                     query = query.Where(m => m.SenderMessId == queryObj.UserId);
                     break;
 

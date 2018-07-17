@@ -10,7 +10,7 @@ using RoomM.API.Service;
 
 namespace RoomM.API.Controllers
 {
-    [Route("api/users/{userId}/[controller]")]
+    [Route("api/users/{id}/[controller]")]
     [ApiController]
     public class MessageController : ControllerBase
     {
@@ -28,14 +28,20 @@ namespace RoomM.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetMessage(int userId)
+        public async Task<IActionResult> GetMessage(int id)
         {
-            if (userId <= 0)
+            if (id <= 0)
                 return BadRequest("Invalid Id");
-            var message = await service.GetMessage(userId);
+            var message = await service.GetMessage(id);
             if (message == null)
                 return NoContent();
             return Ok(mapper.Map<Message, MessageResource>(message));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetMessagesForUser()
+        {
+            return Ok();
         }
 
         [HttpPost]

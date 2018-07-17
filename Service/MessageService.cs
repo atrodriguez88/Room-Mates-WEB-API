@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using NLog;
 using RoomM.API.Core.Log;
@@ -10,6 +11,7 @@ namespace RoomM.API.Service
     public interface IMessageService
     {
         Task<Message> GetMessage(int id);
+        Task<List<Message>> GetMessagesForUser();
         Task AddMessageAsync(Message msg);
     }
 
@@ -47,6 +49,11 @@ namespace RoomM.API.Service
             {
                 logger.LogError(e.Message);
             }
+        }
+
+        public Task<List<Message>> GetMessagesForUser()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -217,6 +217,8 @@ namespace RoomM.API.Migrations
 
                     b.Property<DateTime?>("DateRead");
 
+                    b.Property<DateTime>("DateSend");
+
                     b.Property<bool>("Deleted");
 
                     b.Property<DateTime?>("DeletedAt");
@@ -264,6 +266,8 @@ namespace RoomM.API.Migrations
                     b.Property<string>("FileName")
                         .IsRequired()
                         .HasMaxLength(255);
+
+                    b.Property<bool>("IsAvatar");
 
                     b.Property<int?>("ProfileId");
 

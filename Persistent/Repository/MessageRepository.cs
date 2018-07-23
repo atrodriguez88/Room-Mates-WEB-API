@@ -30,7 +30,7 @@ namespace RoomM.API.Persistent.Repository
                                         .Include(m => m.SenderMess).ThenInclude(p => p.Photos)
                                         .AsQueryable();
 
-            switch (queryObj.MessageSatus)
+            switch (queryObj.MessageSatus.ToLower())
             {
                 case MessageState.Inbox:
                     query = query.Where(m => m.RecivedMessId == queryObj.UserId);

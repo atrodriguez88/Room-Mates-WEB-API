@@ -10,5 +10,7 @@ namespace RoomM.API.Core.Models.Domain
         [Required]
         [StringLength(255)]
         public string FileName { get; set; }
+
+        public bool IsAvatar { get; set; }
     }
 }

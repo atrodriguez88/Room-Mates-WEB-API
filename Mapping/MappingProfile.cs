@@ -14,6 +14,8 @@ namespace RoomM.API.Mapping
         {
             // Domain to API (GET)
             CreateMap<Message, MessageResource>();
+            //                .ForMember(mr => mr.RecivedPhotoURL, opt => opt.MapFrom(m => m.RecivedMess.Photos.FirstOrDefault(p => p.IsAvatar)))
+            //            .ForMember(mr => mr.SenderPhotoURL, opt => opt.MapFrom(m => m.SenderMess.Photos.FirstOrDefault(p => p.IsAvatar))
             CreateMap<Photo, PhotoResource>();
             CreateMap<Preferences, PreferencesResource>();
             CreateMap<ApplicationUser, ApplicationUserResource>();
@@ -36,7 +38,7 @@ namespace RoomM.API.Mapping
 
 
             //API to Domain (POST, PUT)
-            CreateMap<MessageResource, Message>()
+            CreateMap<SaveMessageResource, Message>()
                 .ForMember(m => m.Id, opt => opt.Ignore());
             CreateMap<MessageQueryResource, MessageQuery>();
             CreateMap<ProfileQueryResource, ProfileQuery>();

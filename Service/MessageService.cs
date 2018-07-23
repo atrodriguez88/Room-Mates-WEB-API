@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using NLog;
+using RoomM.API.Controllers.Resources;
 using RoomM.API.Core.Log;
 using RoomM.API.Core.Models.Domain;
+using RoomM.API.Core.QueryString;
 using RoomM.API.Core.Repository;
 
 namespace RoomM.API.Service
@@ -11,7 +13,7 @@ namespace RoomM.API.Service
     public interface IMessageService
     {
         Task<Message> GetMessage(int id);
-        Task<List<Message>> GetMessagesForUser();
+        Task<List<Message>> GetMessagesForUser(MessageQuery queryObj);
         Task AddMessageAsync(Message msg);
     }
 
@@ -51,9 +53,17 @@ namespace RoomM.API.Service
             }
         }
 
-        public Task<List<Message>> GetMessagesForUser()
+        public async Task<List<Message>> GetMessagesForUser(MessageQuery queryObj)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await repository.GetMessagesForUser(queryObj);
+            }
+            catch (Exception e)
+            {
+                logger.LogError(e.Message);
+                return null;
+            }
         }
     }
 }

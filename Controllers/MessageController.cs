@@ -1,17 +1,19 @@
-﻿using System;
-using System.Reflection.Metadata.Ecma335;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using RoomM.API.Controllers.Resources;
 using RoomM.API.Core;
 using RoomM.API.Core.Models.Domain;
 using RoomM.API.Service;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using RoomM.API.Core.QueryString;
 
 namespace RoomM.API.Controllers
 {
-    [Route("api/users/{id}/[controller]")]
+    
     [ApiController]
+    [Route("api/users/{userId}/[controller]")]
     public class MessageController : ControllerBase
     {
         private readonly IMessageService service;
@@ -27,7 +29,7 @@ namespace RoomM.API.Controllers
             this.mapper = mapper;
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetMessage(int id)
         {
             if (id <= 0)
@@ -39,13 +41,22 @@ namespace RoomM.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetMessagesForUser(MessageQueryResource queryObj)
+        public async Task<IActionResult> GetMessagesForUser(int userId, [FromQuery] MessageQueryResource queryObjResource)
         {
-            return Ok();
+            var queryObj = mapper.Map<MessageQueryResource, MessageQuery>(queryObjResource);
+            queryObj.UserId = userId;
+            var messageList = await service.GetMessagesForUser(queryObj);
+
+            if (messageList == null)
+                return NoContent();
+
+            var queryObjResourceList = mapper.Map<List<Message>, List<MessageResource>>(messageList);
+
+            return Ok(queryObjResourceList);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateMessage(int userId, [FromBody] MessageResource msgResource)
+        public async Task<IActionResult> CreateMessage(int userId, [FromBody] SaveMessageResource msgResource)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -55,7 +66,7 @@ namespace RoomM.API.Controllers
                 return BadRequest("Can't find user");
 
             msgResource.SenderMessId = userId;
-            var msg = mapper.Map<MessageResource, Message>(msgResource);
+            var msg = mapper.Map<SaveMessageResource, Message>(msgResource);
             msg.CreatedAt = DateTime.Now;
             msg.CreatedBy = profile.Id.ToString();
 

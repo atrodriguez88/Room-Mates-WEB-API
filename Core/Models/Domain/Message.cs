@@ -17,6 +17,7 @@ namespace RoomM.API.Core.Models.Domain
         public string Content { get; set; }
         public bool IsRead { get; set; }
         public DateTime? DateRead { get; set; }
+        public DateTime DateSend { get; set; }
         public bool Deleted { get; set; }
     }
 }

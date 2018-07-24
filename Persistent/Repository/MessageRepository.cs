@@ -26,7 +26,8 @@ namespace RoomM.API.Persistent.Repository
 
         public async Task<List<Message>> GetMessagesForUser(MessageQuery queryObj)
         {
-            var query = context.Messages.Include(m => m.SenderMess).ThenInclude(p => p.Photos)
+            var query = context.Messages.Include(m => m.SenderMess)
+                                            .ThenInclude(p => p.Photos)
                                         .Include(m => m.SenderMess).ThenInclude(p => p.Photos)
                                         .AsQueryable();
 
@@ -46,6 +47,18 @@ namespace RoomM.API.Persistent.Repository
             }
 
             return await query.OrderByDescending(m => m.CreatedAt).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Message>> GetMessageThread(int userId, int recipientId)
+        {
+            var messages = await context.Messages.Include(m => m.SenderMess)
+                                            .ThenInclude(p => p.Photos)
+                                        .Include(m => m.SenderMess).ThenInclude(p => p.Photos)
+                                        .Where(m => m.RecivedMessId == userId && m.SenderMessId == recipientId
+                                        || m.RecivedMessId == recipientId && m.SenderMessId == userId)
+                                        .OrderByDescending(m => m.DateSend)
+                                        .ToListAsync();
+            return messages;
         }
     }
 }

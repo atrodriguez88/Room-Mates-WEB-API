@@ -12,6 +12,7 @@ namespace RoomM.API.Core.Repository
         Task<Message> GetMessage(int id);
 
         Task<List<Message>> GetMessagesForUser(MessageQuery queryObj);
-        //        Task<IEnumerable<Message>> GetMessageThread(int userId, int recipientId);
+
+        Task<IEnumerable<Message>> GetMessageThread(int userId, int recipientId);
     }
 }

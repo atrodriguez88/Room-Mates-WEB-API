@@ -29,7 +29,7 @@ namespace RoomM.API.Controllers
             this.mapper = mapper;
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}")]   // "api/users/{userId}/[controller]/{id}"
         public async Task<IActionResult> GetMessage(int id)
         {
             if (id <= 0)
@@ -53,6 +53,14 @@ namespace RoomM.API.Controllers
             var queryObjResourceList = mapper.Map<List<Message>, List<MessageResource>>(messageList);
 
             return Ok(queryObjResourceList);
+        }
+
+        [HttpGet("thread/{recipientId}")]   // "api/users/{userId}/[controller]/thread/{recipientId}"
+        public async Task<IActionResult> GetMessageThread(int userId, int recipientId)
+        {
+            var messages = await service.GetMessageThread(userId, recipientId);
+            var messsagesThread = mapper.Map<IEnumerable<Message>, IEnumerable<MessageResource>>(messages);
+            return Ok(messsagesThread);
         }
 
         [HttpPost]

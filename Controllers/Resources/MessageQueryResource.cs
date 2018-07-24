@@ -3,6 +3,6 @@
     public class MessageQueryResource
     {
         public int UserId { get; set; }
-        public string MessageSatus { get; set; }
+        public string MessageSatus { get; set; } = "Unread";
     }
 }

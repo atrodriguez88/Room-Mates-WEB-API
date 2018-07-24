@@ -14,6 +14,7 @@ namespace RoomM.API.Service
     {
         Task<Message> GetMessage(int id);
         Task<List<Message>> GetMessagesForUser(MessageQuery queryObj);
+        Task<IEnumerable<Message>> GetMessageThread(int userId, int recipientId);
         Task AddMessageAsync(Message msg);
     }
 
@@ -58,6 +59,19 @@ namespace RoomM.API.Service
             try
             {
                 return await repository.GetMessagesForUser(queryObj);
+            }
+            catch (Exception e)
+            {
+                logger.LogError(e.Message);
+                return null;
+            }
+        }
+
+        public async Task<IEnumerable<Message>> GetMessageThread(int userId, int recipientId)
+        {
+            try
+            {
+                return await repository.GetMessageThread(userId, recipientId);
             }
             catch (Exception e)
             {

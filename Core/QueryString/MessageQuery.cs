@@ -3,6 +3,6 @@
     public class MessageQuery
     {
         public int UserId { get; set; }
-        public string MessageSatus { get; set; } = "Unread";
+        public string MessageSatus { get; set; }
     }
 }

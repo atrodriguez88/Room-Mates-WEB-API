@@ -25,8 +25,6 @@ namespace RoomM.API.Core.Models.Domain
         public int UserId { get; set; }
         public ApplicationUser User { get; set; }
 
-        public ICollection<Room> Rooms { get; set; }
-
         public bool Deleted { get; set; }
 
         public ICollection<Photo> Photos { get; set; }
@@ -35,7 +33,6 @@ namespace RoomM.API.Core.Models.Domain
 
         public Profile()
         {
-            Rooms = new Collection<Room>();
             Photos = new Collection<Photo>();
             MessagesSender = new Collection<Message>();
             MessagesRecived = new Collection<Message>();

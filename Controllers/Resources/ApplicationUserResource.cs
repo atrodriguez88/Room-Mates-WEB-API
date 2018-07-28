@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace RoomM.API.Controllers.Resources
@@ -15,5 +17,11 @@ namespace RoomM.API.Controllers.Resources
         public string Address { get; set; }
         [Phone]
         public string PhoneNumber { get; set; }
+        public ICollection<int> Rooms { get; set; }
+
+        public ApplicationUserResource()
+        {
+            Rooms = new Collection<int>();
+        }
     }
 }

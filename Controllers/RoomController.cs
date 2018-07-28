@@ -66,7 +66,7 @@ namespace RoomM.API.Controllers
             room.PropertyType = await propertyService.FirstOrDefault( p => p.Id == roomResource.PropertyId);
 
             room.CreatedAt = DateTime.Now;
-            room.CreatedBy = room.ProfileId.ToString();
+            room.CreatedBy = room.UserId.ToString();
 
             await service.AddRoomAsync(room);
             await uow.CompleteAsync();
@@ -95,7 +95,7 @@ namespace RoomM.API.Controllers
             room.PropertyType = await propertyService.FirstOrDefault(p => p.Id == roomResource.PropertyId);
 
             room.UpdatedAt = DateTime.Now;
-            room.CreatedBy = room.ProfileId.ToString();
+            room.CreatedBy = room.UserId.ToString();
 
 
             await uow.CompleteAsync();
@@ -114,7 +114,7 @@ namespace RoomM.API.Controllers
             service.Remove(room);
 
             room.DeletedAt = DateTime.Now;
-            room.DeletedBy = room.ProfileId.ToString();
+            room.DeletedBy = room.UserId.ToString();
 
             await uow.CompleteAsync();
             return Ok(id);

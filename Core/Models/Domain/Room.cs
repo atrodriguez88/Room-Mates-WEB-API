@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using Common.CustomFilters;
+using RoomM.API.Core.Models.Auth;
 using RoomM.API.Core.Models.Helper;
 
 namespace RoomM.API.Core.Models.Domain
@@ -51,8 +52,8 @@ namespace RoomM.API.Core.Models.Domain
 
         public ICollection<Photo> Photos { get; set; }
 
-        public int ProfileId { get; set; }
-        public Profile Profile { get; set; }
+        public int UserId { get; set; }
+        public ApplicationUser User { get; set; }
 
         public Room()
         {

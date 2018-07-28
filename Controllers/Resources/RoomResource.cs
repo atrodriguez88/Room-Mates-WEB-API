@@ -32,8 +32,8 @@ namespace RoomM.API.Controllers.Resources
         /* ************ Preferred Roommates ***************** */
         public PreferencesResource Preference { get; set; }
 
-        public int ProfileId { get; set; }
-        // public ApplicationUser User { get; set; }
+        public int UserId { get; set; }
+
         // public Photo Photos { get; set; }
         public RoomResource()
         {

@@ -200,6 +200,9 @@ namespace RoomM.API.Migrations
                         .HasName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
+                    b.HasIndex("ProfilesId")
+                        .IsUnique();
+
                     b.ToTable("AspNetUsers");
                 });
 
@@ -363,13 +366,9 @@ namespace RoomM.API.Migrations
 
                     b.Property<int>("UserId");
 
-                    b.Property<string>("UserId1");
-
                     b.HasKey("Id");
 
                     b.HasIndex("OcupationId");
-
-                    b.HasIndex("UserId1");
 
                     b.ToTable("Profiles");
                 });
@@ -497,8 +496,6 @@ namespace RoomM.API.Migrations
 
                     b.Property<int?>("PreferenceId1");
 
-                    b.Property<int>("ProfileId");
-
                     b.Property<int>("PropertyId");
 
                     b.Property<int?>("PropertyTypeId");
@@ -519,13 +516,17 @@ namespace RoomM.API.Migrations
 
                     b.Property<string>("UpdatedBy");
 
+                    b.Property<int>("UserId");
+
+                    b.Property<string>("UserId1");
+
                     b.HasKey("Id");
 
                     b.HasIndex("PreferenceId1");
 
-                    b.HasIndex("ProfileId");
-
                     b.HasIndex("PropertyTypeId");
+
+                    b.HasIndex("UserId1");
 
                     b.ToTable("Rooms");
                 });
@@ -651,6 +652,14 @@ namespace RoomM.API.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("RoomM.API.Core.Models.Auth.ApplicationUser", b =>
+                {
+                    b.HasOne("RoomM.API.Core.Models.Domain.Profile", "Profiles")
+                        .WithOne("User")
+                        .HasForeignKey("RoomM.API.Core.Models.Auth.ApplicationUser", "ProfilesId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("RoomM.API.Core.Models.Domain.Message", b =>
                 {
                     b.HasOne("RoomM.API.Core.Models.Domain.Profile", "RecivedMess")
@@ -689,10 +698,6 @@ namespace RoomM.API.Migrations
                         .WithMany()
                         .HasForeignKey("OcupationId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("RoomM.API.Core.Models.Auth.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId1");
                 });
 
             modelBuilder.Entity("RoomM.API.Core.Models.Domain.Room", b =>
@@ -701,14 +706,13 @@ namespace RoomM.API.Migrations
                         .WithMany()
                         .HasForeignKey("PreferenceId1");
 
-                    b.HasOne("RoomM.API.Core.Models.Domain.Profile", "Profile")
-                        .WithMany("Rooms")
-                        .HasForeignKey("ProfileId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("RoomM.API.Core.Models.Domain.PropertyType", "PropertyType")
                         .WithMany()
                         .HasForeignKey("PropertyTypeId");
+
+                    b.HasOne("RoomM.API.Core.Models.Auth.ApplicationUser", "User")
+                        .WithMany("Rooms")
+                        .HasForeignKey("UserId1");
                 });
 
             modelBuilder.Entity("RoomM.API.Core.Models.Domain.RoomRoomFeatures", b =>

@@ -5,6 +5,7 @@ namespace RoomM.API.Controllers.Resources
     public class ProfileResource
     {
         public int Id { get; set; }
+        public int NickName { get; set; }
         public int Age { get; set; }
         public string Gender { get; set; }
         // public int OcupationId { get; set; }

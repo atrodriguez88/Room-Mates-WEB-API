@@ -351,12 +351,15 @@ namespace RoomM.API.Migrations
 
                     b.Property<string>("DeletedBy");
 
-                    b.Property<string>("Gender");
+                    b.Property<string>("Gender")
+                        .IsRequired();
 
                     b.Property<string>("MaxRentMonth")
                         .IsRequired();
 
                     b.Property<DateTime>("MovingDate");
+
+                    b.Property<int>("NickName");
 
                     b.Property<int>("OcupationId");
 

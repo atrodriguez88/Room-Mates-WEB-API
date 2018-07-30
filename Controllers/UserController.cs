@@ -19,9 +19,9 @@ namespace RoomM.API.Controllers
             this.repository = repository;
         }
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetUser(string id)
+        public async Task<IActionResult> GetUserByEmail(string id)
         {
-            var user = await repository.GetUser(id);
+            var user = await repository.GetUserByEmail(id);
             if (user == null)
                 NotFound();
             return Ok(mapper.Map<ApplicationUser, ApplicationUserResource>(user));

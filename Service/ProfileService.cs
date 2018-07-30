@@ -60,7 +60,7 @@ namespace RoomM.API.Service
         {
             try
             {
-                return repository.Find(p => p.Id == userId);
+                return repository.Find(p => p.UserId == userId);
             }
             catch (Exception e)
             {

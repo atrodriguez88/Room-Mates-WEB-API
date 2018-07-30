@@ -46,7 +46,7 @@ namespace RoomM.API
             services.AddScoped<IAuthRepository, AuthRepository>();
 
             services.AddScoped<IRoomFeature, RoomFeatureRepository>();
-            services.AddScoped<IRoomService, RoomService>();
+            services.AddScoped<IRoomFeatureService, RoomFeatureService>();
 
             services.AddScoped<IPropertyType, PropertyTypeRepository>();
             services.AddScoped<IPropertyTypeService, PropertyTypeService>();

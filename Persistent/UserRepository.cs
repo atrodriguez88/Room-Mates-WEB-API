@@ -13,7 +13,7 @@ namespace RoomM.API.Persistent
         {
             this.context = context;
         }
-        public async Task<ApplicationUser> GetUser(string email)
+        public async Task<ApplicationUser> GetUserByEmail(string email)
         {
             var user = await context.Users.SingleOrDefaultAsync(u => u.Email == email);
             return user;

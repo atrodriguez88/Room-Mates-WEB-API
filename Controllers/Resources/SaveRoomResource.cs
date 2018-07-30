@@ -32,7 +32,7 @@ namespace RoomM.API.Controllers.Resources
         /* ************ Preferred Roommates ***************** */
         public PreferencesResource Preference { get; set; }
 
-        public int ProfileId { get; set; }
+        public int UserId { get; set; }
         public SaveRoomResource()
         {
             PropertyFeatures = new Collection<int>();

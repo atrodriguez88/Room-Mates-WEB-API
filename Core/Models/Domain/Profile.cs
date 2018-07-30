@@ -11,14 +11,20 @@ namespace RoomM.API.Core.Models.Domain
     public class Profile : AuditEntity, ISoftDeleted
     {
         public int Id { get; set; }
+        [Required]
+        public int NickName { get; set; }
+        [Required]
         public int Age { get; set; }
+        [Required]
         public string Gender { get; set; }
+
         public int OcupationId { get; set; }
         public Ocupation Ocupation { get; set; }
         [Required]
         public string Address { get; set; }             // Where do you want to live?
         [Required]
         public string MaxRentMonth { get; set; }        // $/month
+        [Required]
         public DateTime MovingDate { get; set; }
         public string Comentarios { get; set; }        // Add a comentars about what you looking for..
 

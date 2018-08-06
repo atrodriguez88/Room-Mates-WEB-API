@@ -21,7 +21,7 @@ namespace RoomM.API.Core.Models.Auth
         public string AboutMe { get; set; }
         public string Address { get; set; }
 
-        public int ProfilesId { get; set; }
+        public int? ProfilesId { get; set; }
         public Profile Profiles { get; set; }
 
         public ICollection<Room> Rooms { get; set; }

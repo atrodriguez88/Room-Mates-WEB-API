@@ -55,17 +55,13 @@ namespace RoomM.API.Persistent.Repository
         public async Task<bool> Login(string user, string password)
         {
             var result = await signInManager.PasswordSignInAsync(user, password, isPersistent: false, lockoutOnFailure: false);
-            if(result.Succeeded)
-                return true;
-            return false;    
+            return result.Succeeded;
         }
 
         public async Task<bool> Register(ApplicationUser user, string password)
         {
             var result = await userManager.CreateAsync(user, password);
-            if (result.Succeeded)
-                return true;
-            return false;    
+            return result.Succeeded;
         }
 
         public async Task<bool> UserExist(string user)

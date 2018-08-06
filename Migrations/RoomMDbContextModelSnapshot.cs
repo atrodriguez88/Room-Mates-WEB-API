@@ -179,7 +179,7 @@ namespace RoomM.API.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed");
 
-                    b.Property<int>("ProfilesId");
+                    b.Property<int?>("ProfilesId");
 
                     b.Property<string>("SecurityStamp");
 
@@ -201,7 +201,8 @@ namespace RoomM.API.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.HasIndex("ProfilesId")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[ProfilesId] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
                 });
@@ -659,8 +660,7 @@ namespace RoomM.API.Migrations
                 {
                     b.HasOne("RoomM.API.Core.Models.Domain.Profile", "Profiles")
                         .WithOne("User")
-                        .HasForeignKey("RoomM.API.Core.Models.Auth.ApplicationUser", "ProfilesId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("RoomM.API.Core.Models.Auth.ApplicationUser", "ProfilesId");
                 });
 
             modelBuilder.Entity("RoomM.API.Core.Models.Domain.Message", b =>

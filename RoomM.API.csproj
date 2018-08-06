@@ -25,6 +25,10 @@
     <Compile Remove="Migrations\20180704030241_RoomModify.Designer.cs" />
     <Compile Remove="Migrations\20180708013736_Photo.cs" />
     <Compile Remove="Migrations\20180708013736_Photo.Designer.cs" />
+    <Compile Remove="Migrations\20180806042959_AddThings.cs" />
+    <Compile Remove="Migrations\20180806042959_AddThings.Designer.cs" />
+    <Compile Remove="Migrations\20180806043733_AddThings.cs" />
+    <Compile Remove="Migrations\20180806043733_AddThings.Designer.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="6.2.2" />

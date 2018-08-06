@@ -13,7 +13,7 @@ namespace RoomM.API.Controllers
         private readonly IAuthRepository repository;
         private readonly IMapper mapper;
 
-        public AccountController(IAuthRepository repository, IMapper mapper )
+        public AccountController(IAuthRepository repository, IMapper mapper)
         {
             this.mapper = mapper;
             this.repository = repository;
@@ -29,11 +29,11 @@ namespace RoomM.API.Controllers
                 var userExist = await repository.UserExist(userInfo.Email);
                 if (userExist)
                 {
-                   return BadRequest("This user alraedy exist");
+                    return BadRequest("This user alraedy exist");
                 }
                 var result = await repository.Register(user, userInfo.Password);
                 if (result)
-                {                    
+                {
                     return Ok(repository.BuildToken(mapper.Map<SaveApplicationUserResource, ApplicationUser>(userInfo)));
                 }
                 else
@@ -52,14 +52,15 @@ namespace RoomM.API.Controllers
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] SaveApplicationUserResource userInfo)
         {
+            bool result = false;
+
             if (ModelState.IsValid)
             {
                 var userExist = await repository.UserExist(userInfo.Email);
                 if (userExist)
                 {
-                    BadRequest("This user alraedy exist");
+                    result = await repository.Login(userInfo.Email, userInfo.Password);
                 }
-                var result = await repository.Login(userInfo.Email, userInfo.Password);
                 if (result)
                 {
                     return Ok(repository.BuildToken(mapper.Map<SaveApplicationUserResource, ApplicationUser>(userInfo)));
@@ -74,6 +75,6 @@ namespace RoomM.API.Controllers
             {
                 return BadRequest(ModelState);
             }
-        }        
+        }
     }
 }
